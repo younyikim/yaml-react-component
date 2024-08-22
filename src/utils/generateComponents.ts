@@ -1,12 +1,8 @@
-import { Command } from 'commander';
-
-// Utils
+// Typings
 import { ParsedYaml } from '../types/utils';
 
-export function generateComponents(
-  config: ParsedYaml,
-  outDir: string,
-  program: Command
-) {
-  console.log(outDir);
+export function generateComponents(config: ParsedYaml, outDir: string) {
+  const components = config.components;
+
+  Object.entries(components).forEach(([name, configs]) => console.log(name));
 }
