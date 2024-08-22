@@ -9,7 +9,6 @@ describe('YAML Parser', () => {
 
   test('should parse YAML file to JSON object', () => {
     const result = yamlParser(sampleYamlPath);
-    console.log('Parsed YAML result:', JSON.stringify(result, null, 2)); // JSON 객체를 읽기 쉬운 형식으로 출력
     expect(result).toHaveProperty('components');
   });
 });
