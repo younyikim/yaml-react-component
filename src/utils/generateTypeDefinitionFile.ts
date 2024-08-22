@@ -1,4 +1,5 @@
 import fsExtra from 'fs-extra';
+import chalk from 'chalk';
 
 // Utils
 import { generateTypes } from './typeInference';
@@ -12,18 +13,40 @@ import { ParsedYaml } from '../types/utils';
  * 이 함수는 YAML 파일을 파싱하여 TypeScript 타입을 생성하고, 지정된 디렉토리에 컴포넌트와 타입 파일을 저장합니다.
  *
  * @param config - JSON 형식으로 파싱된 YAML 객체입니다.
- * @param typeOutDir - 생성된 TypeScript 타입을 저장할 디렉토리 경로입니다.
+ * @param outDir - cli 옵션(-d, --outDir)으로 입력된 output directory 경로
+ * @param typesDir - cli 옵션(-t, --types)으로 입력된 type directory 경로
  *
  * @throws Error - 파일 경로가 잘못되었거나 YAML 파일의 파싱 또는 타입 생성 과정에서 오류가 발생할 경우 오류를 던집니다.
  */
 
 export function generateTypeDefinitionFile(
   config: ParsedYaml,
-  typeOutDir: string
+  outDir: string,
+  typesDir: string
 ) {
   const { existsSync, mkdirSync, outputFileSync } = fsExtra;
 
   try {
+    let typeOutDir = typesDir;
+
+    // 디렉토리 경로의 마지막에 '/'가 포함된 경우 에러 처리
+    if (typesDir.endsWith('/') || outDir.endsWith('/')) {
+      console.error(
+        chalk.red(
+          'Error: Directory path should not end with a trailing slash. ex) path/dir/ (X) -> path/dir (O)'
+        )
+      );
+      process.exit(1);
+    }
+
+    // 사용자가 typesDir 옵션을 기본값 그대로 두고, outDir 옵션만 변경했을 경우, typeOutDir을 outDir에 맞춰 업데이트
+    if (
+      typesDir === './src/components/types' &&
+      outDir !== './src/components'
+    ) {
+      typeOutDir = `${outDir}/types`;
+    }
+
     const generatedTypes = generateTypes(config);
 
     // 컴포넌트 타입을 저장할 디렉토리가 존재하지 않는 경우 디렉토리 생성
@@ -33,6 +56,12 @@ export function generateTypeDefinitionFile(
 
     // 컴포넌트 타입을 저장할 디렉토리 경로에 index.d.ts 파일을 생성하고 생성한 TypeScript 타입을 적는다.
     outputFileSync(`${typeOutDir}/index.d.ts`, generatedTypes);
+
+    console.log(
+      chalk.green(
+        `Successfully generated TypeScript definitions at: ${chalk.cyan(typeOutDir)}`
+      )
+    );
   } catch (error) {
     console.error(`Error: An unexpected error occurred: ${error}`);
     throw error;

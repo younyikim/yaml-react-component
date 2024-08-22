@@ -32,37 +32,11 @@ export function initGenerateComponent(program: Command) {
     .action(async (options) => {
       const { file, outDir, types } = options;
 
-      let typeOutDir = types;
-
       try {
-        // 디렉토리 경로의 마지막에 '/'가 포함된 경우 에러 처리
-        if (types.endsWith('/') || outDir.endsWith('/')) {
-          console.error(
-            chalk.red(
-              'Error: Directory path should not end with a trailing slash. ex) path/dir/ (X) -> path/dir (O)'
-            )
-          );
-          process.exit(1);
-        }
-
-        // 사용자가 types 옵션을 기본값 그대로 두고, outDir 옵션만 변경했을 경우, typeOutDir을 outDir에 맞춰 업데이트
-        if (
-          types === './src/components/types' &&
-          outDir !== './src/components'
-        ) {
-          typeOutDir = `${outDir}/types`;
-        }
-
         const parsedYaml = yamlParser(file);
 
         // YAML 파일을 바탕으로 TypeScript 타입을 저장할 디렉토리와 파일을 생성
-        generateTypeDefinitionFile(parsedYaml, typeOutDir);
-
-        console.log(
-          chalk.green(
-            `Successfully generated TypeScript definitions at: ${chalk.cyan(typeOutDir)}`
-          )
-        );
+        generateTypeDefinitionFile(parsedYaml, outDir, types);
 
         // YAML 파일을 바탕으로 컴포넌트를 생성
         generateComponents(parsedYaml, outDir);
