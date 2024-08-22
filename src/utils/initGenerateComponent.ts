@@ -2,9 +2,9 @@ import { Command } from 'commander';
 import fsExtra from 'fs-extra';
 
 // Utils
-import { generateComponents } from './utils/generateComponents';
-import { generateTypes } from './utils/typeInference';
-import { yamlParser } from './utils/yamlParser';
+import { generateComponents } from './generateComponents';
+import { generateTypes } from './typeInference';
+import { yamlParser } from './yamlParser';
 
 /**
  * YAML 파일을 바탕으로 TypeScript 타입 및 React 컴포넌트를 생성하는 함수입니다.

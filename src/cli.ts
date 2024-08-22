@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import fs from 'fs';
 
 import { Command } from 'commander';
-import { initGenerateComponent } from './index';
+import { initGenerateComponent } from './utils/initGenerateComponent';
 
 const program = new Command();
 
