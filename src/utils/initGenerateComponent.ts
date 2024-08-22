@@ -3,7 +3,7 @@ import chalk from 'chalk';
 
 // Utils
 import { yamlParser } from './yamlParser';
-import { generateComponents } from './generateComponents';
+import { generateComponentGroup } from './generateComponentGroup';
 import { generateTypeDefinitionFile } from './generateTypeDefinitionFile';
 
 /**
@@ -29,7 +29,7 @@ export function initGenerateComponent(program: Command) {
       'Path to generate component TypeScript types',
       './src/components/types'
     )
-    .action(async (options) => {
+    .action(async (options, cmd: Command) => {
       const { file, outDir, types } = options;
 
       try {
@@ -39,7 +39,7 @@ export function initGenerateComponent(program: Command) {
         generateTypeDefinitionFile(parsedYaml, outDir, types);
 
         // YAML 파일을 바탕으로 컴포넌트를 생성
-        generateComponents(parsedYaml, outDir);
+        generateComponentGroup(parsedYaml, cmd);
 
         console.log(chalk.green('Components generated successfully.'));
       } catch (error) {
