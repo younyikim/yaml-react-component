@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 
 // Template
-import componentTemplate from '../templates/componentTemplate';
+import componentTemplate from '../templates/components/componentTemplate';
 
 // Utils
 import { templateStatusConvertor } from './templateStatusConvertor';
