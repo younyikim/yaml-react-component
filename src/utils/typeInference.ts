@@ -1,3 +1,7 @@
+// Utils
+import { capitalizeFirstLetter } from './util';
+
+// Typings
 import { Component, ParsedYaml } from '../types/utils';
 
 /**
@@ -39,10 +43,12 @@ export function generateComponentInterface(
   const propsType = component.props
     ? generateType(component.props, !!component.children)
     : '{}';
-  const stateType = component.state ? generateType(component.state) : '{}';
+  const stateType = component.state
+    ? generateStateInterfaces(name, component.state)
+    : '{}';
 
   return `interface ${name}Props ${propsType}
-  interface ${name}State ${stateType}`;
+  ${stateType}`;
 }
 
 /**
@@ -64,6 +70,26 @@ export function generateType(
   }
 
   return `{ ${types} }`;
+}
+
+/**
+ * 컴포넌트의 상태를 위한 TypeScript 인터페이스를 생성합니다.
+ *
+ * @param componentName - 컴포넌트의 이름입니다.
+ * @param state - 상태를 정의하는 필드와 타입의 딕셔너리입니다.
+ * @returns 상태에 대한 TypeScript 인터페이스 정의가 포함된 문자열을 반환합니다.
+ */
+function generateStateInterfaces(
+  componentName: string,
+  state: Record<string, string>
+): string {
+  return Object.entries(state)
+    .map(([stateName, stateType]) => {
+      const interfaceName = `${componentName}${capitalizeFirstLetter(stateName)}State`;
+      const typeDefinition = convertToType(stateType);
+      return `interface ${interfaceName} { ${stateName}: ${typeDefinition} }`;
+    })
+    .join('\n');
 }
 
 /**

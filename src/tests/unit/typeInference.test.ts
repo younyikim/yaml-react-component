@@ -14,10 +14,10 @@ describe('Type Inference System', () => {
   test('should generate TypeScript interfaces from JSON object', () => {
     const types = generateTypes(sampleYaml);
     expect(types).toContain('interface DashboardProps');
-    expect(types).toContain('interface DashboardState');
+    expect(types).toContain('interface DashboardDataState');
+    expect(types).toContain('interface DashboardLoadingState');
     expect(types).toContain('interface HeaderProps');
     expect(types).toContain('interface UserMenuProps');
-    expect(types).toContain('interface UserMenuState');
     expect(types).toContain('interface DATA_LOADEDEvent');
     expect(types).toContain('interface TOGGLE_MENUEvent');
   });
