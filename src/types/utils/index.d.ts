@@ -33,7 +33,7 @@ export interface GeneratedTemplate {
   template: string;
 }
 
-export interface EventBus {
+export interface EventBusType {
   subscribe<T>(event: string, handler: EventHandler<T>): void;
   publish<T>(event: string, payload: T): void;
   unsubscribe<T>(event: string, handler: EventHandler<T>): void;

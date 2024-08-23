@@ -1,4 +1,4 @@
-import { EventBus, EventHandler } from '../types/utils';
+import { EventBusType, EventHandler } from '../types/utils';
 
 /**
  * 새로운 EventBus 인스턴스를 생성합니다.
@@ -6,7 +6,7 @@ import { EventBus, EventHandler } from '../types/utils';
  *
  * @returns {EventBus} 이벤트 관리를 위한 메서드를 포함하는 EventBus 인스턴스입니다.
  */
-function createEventBus(): EventBus {
+export function eventBus(): EventBusType {
   // 이벤트 구독자를 추적하는 객체
   const subscribers: { [event: string]: EventHandler<any>[] } = {};
 
@@ -61,5 +61,3 @@ function createEventBus(): EventBus {
     },
   };
 }
-
-export default createEventBus;
