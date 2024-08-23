@@ -15,8 +15,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       yaml-react-component:
-        specifier: ^1.0.0
-        version: 1.0.0(@babel/core@7.25.2)(@jest/transform@29.7.0)(@jest/types@29.6.3)(@testing-library/dom@10.4.0)(babel-jest@29.7.0(@babel/core@7.25.2))
+        specifier: ^1.0.1
+        version: 1.0.1(@babel/core@7.25.2)(@jest/transform@29.7.0)(@jest/types@29.6.3)(@testing-library/dom@10.4.0)(babel-jest@29.7.0(@babel/core@7.25.2))
     devDependencies:
       '@eslint/js':
         specifier: ^9.9.0
@@ -2110,8 +2110,8 @@ packages:
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
 
-  yaml-react-component@1.0.0:
-    resolution: {integrity: sha512-1lbgBsiPbypZ4BX98xvhWICyEiR5hrrdZ/DfNvTN15UhR+MrG1QjS5Wegys1JgnHgfXet3/5vDkl7Znep0lxAg==}
+  yaml-react-component@1.0.1:
+    resolution: {integrity: sha512-UPNX2VUW0WFl2ykYetTfhXfiU2+8najinxwpqPL/IcAnsu+ATvUiuuLmj+hxyaPkYTzurmmAolg9jmM23otxIA==}
     hasBin: true
 
   yargs-parser@21.1.1:
@@ -4398,7 +4398,7 @@ snapshots:
 
   yallist@3.1.1: {}
 
-  yaml-react-component@1.0.0(@babel/core@7.25.2)(@jest/transform@29.7.0)(@jest/types@29.6.3)(@testing-library/dom@10.4.0)(babel-jest@29.7.0(@babel/core@7.25.2)):
+  yaml-react-component@1.0.1(@babel/core@7.25.2)(@jest/transform@29.7.0)(@jest/types@29.6.3)(@testing-library/dom@10.4.0)(babel-jest@29.7.0(@babel/core@7.25.2)):
     dependencies:
       '@testing-library/jest-dom': 6.4.8
       '@testing-library/react': 16.0.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.0)(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
