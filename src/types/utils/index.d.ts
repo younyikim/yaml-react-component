@@ -32,3 +32,11 @@ export interface GeneratedTemplate {
   componentStyle: string;
   template: string;
 }
+
+export interface EventBus {
+  subscribe<T>(event: string, handler: EventHandler<T>): void;
+  publish<T>(event: string, payload: T): void;
+  unsubscribe<T>(event: string, handler: EventHandler<T>): void;
+}
+
+export type EventHandler<T> = (payload: T) => void;
