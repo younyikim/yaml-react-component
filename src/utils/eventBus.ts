@@ -38,7 +38,6 @@ export function eventBus(): EventBusType {
      */
     publish<T>(event: string, payload: T): void {
       if (subscribers[event]) {
-        console.log(event, '발행됨');
         subscribers[event].forEach((handler) => {
           handler(payload);
         });

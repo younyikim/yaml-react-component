@@ -6,13 +6,13 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "generate-components": "dist/index.js"
+    "gcpt": "./dist/cli.js"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "tsx src/index.ts",
+    "dev": "tsx src/cli.ts",
     "build": "tsc && tsc-alias",
     "test": "jest"
   },
