@@ -17,15 +17,17 @@ export interface Component {
 
 export interface ParsedYaml {
   components: Record<string, Component>;
-  events: Record<string, { payload: string }>;
+  events?: Record<string, { payload: string }>;
   hooks?: Record<
     string,
     { args: Record<string, string>; returns: Record<string, string> }
   >;
-  styles: Record<string, { css: string }>;
+  styles?: Record<string, { css: string }>;
 }
 
 export interface GeneratedTemplate {
-  componentPath: string;
-  fileName: string;
+  componentDirPath: string;
+  componentFilePath: string;
+  componentStyle: string;
+  template: string;
 }

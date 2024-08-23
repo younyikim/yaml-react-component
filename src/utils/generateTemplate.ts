@@ -5,10 +5,21 @@ import componentTemplate from '../templates/componentTemplate';
 
 // Utils
 import { templateStatusConvertor } from './templateStatusConvertor';
+import { uncapitalizeFirstLetter } from './util';
 
 // Typings
 import { GeneratedTemplate, ParsedYaml } from '../types/utils';
 
+/**
+ * 주어진 YAML 구성 파일과 명령어 옵션을 기반으로 React 컴포넌트 템플릿을 생성합니다.
+ * 컴포넌트의 props, state, children, 스타일 등의 정보를 반영하여 템플릿을 커스터마이징합니다.
+ *
+ * @param {string} componentName - 생성할 컴포넌트의 이름입니다.
+ * @param {ParsedYaml} config - YAML 파일을 파싱한 결과로 얻어진 구성 객체입니다.
+ * @param {Command} cmd - 커맨드라인 명령어를 처리하는 Commander.js의 Command 객체입니다.
+ *
+ * @returns {GeneratedTemplate} 생성된 템플릿, 컴포넌트의 디렉토리 경로, 파일 경로, 스타일 코드 등을 포함한 객체를 반환합니다.
+ */
 export function generateTemplate(
   componentName: string,
   config: ParsedYaml,
@@ -18,10 +29,11 @@ export function generateTemplate(
   const { outDir } = cmd.opts();
 
   const component = components[componentName];
-  const componentPath = `${outDir}/${componentName}`;
-  const fileName = `${componentName}.tsx`;
+  const componentDirPath = `${outDir}/${componentName}`;
+  const componentFilePath = `${outDir}/${componentName}/index.tsx`;
 
   let template = componentTemplate;
+  let componentStyleCode = '';
 
   // children 정보를 템플릿에 반영
   template = component?.children
@@ -40,8 +52,27 @@ export function generateTemplate(
     template = templateStatusConvertor(componentName, component, template, cmd);
   }
 
+  if (styles) {
+    const componentStyle = styles[componentName];
+
+    // 스타일이 있는 컴포넌트
+    if (componentStyle) {
+      componentStyleCode = componentStyle.css;
+
+      template = template.replace(
+        `className="templateclass"`,
+        `className="${uncapitalizeFirstLetter(componentName)}"`
+      );
+    } else {
+      template = template.replace(`import './style.css';`, '');
+      template = template.replace(` className="templateclass"`, '');
+    }
+  }
+
   return {
-    componentPath,
-    fileName,
+    componentDirPath,
+    componentFilePath,
+    template,
+    componentStyle: componentStyleCode,
   };
 }
