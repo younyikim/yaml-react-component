@@ -1,5 +1,8 @@
 import { Command } from 'commander';
 
+// Utils
+import { generateTemplate } from './generateTemplate';
+
 // Typings
 import { ParsedYaml } from '../types/utils';
 
@@ -8,5 +11,11 @@ export function generateComponent(
   config: ParsedYaml,
   cmd: Command
 ) {
-  console.log(componentName);
+  const { componentPath, fileName } = generateTemplate(
+    componentName,
+    config,
+    cmd
+  );
+
+  console.log(componentPath, fileName);
 }

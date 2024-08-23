@@ -87,3 +87,42 @@ events:
     payload: none
   USER_DETAILS_EDITED:
     payload: object
+
+hooks:
+  useUserData:
+    args:
+      userId: number
+    returns:
+      data: object
+      loading: boolean
+  usePosts:
+    args: none
+    returns:
+      posts: array
+      loading: boolean
+
+styles:
+  Dashboard:
+    css: |
+      .dashboard {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+  Header:
+    css: |
+      .header {
+        background-color: #333;
+        color: white;
+        padding: 1rem;
+      }
+  Footer:
+    css: |
+      .footer {
+        background-color: #f1f1f1;
+        text-align: center;
+        padding: 1rem;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
