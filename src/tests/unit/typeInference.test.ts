@@ -18,7 +18,6 @@ describe('Type Inference System', () => {
     expect(types).toContain('interface DashboardLoadingState');
     expect(types).toContain('interface HeaderProps');
     expect(types).toContain('interface UserMenuProps');
-    expect(types).toContain('interface DATA_LOADEDEvent');
-    expect(types).toContain('interface TOGGLE_MENUEvent');
+    expect(types).toContain('interface EventPayloads');
   });
 });

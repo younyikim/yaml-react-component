@@ -45,7 +45,7 @@ export function generateComponentInterface(
     : '{}';
   const stateType = component.state
     ? generateStateInterfaces(name, component.state)
-    : '{}';
+    : '';
 
   return `interface ${name}Props ${propsType}
   ${stateType}`;
@@ -101,12 +101,11 @@ function generateStateInterfaces(
 function generateEventInterfaces(
   events: Record<string, { payload: string }>
 ): string {
-  return Object.entries(events)
-    .map(
-      ([event, { payload }]) =>
-        `interface ${event}Event { payload: ${convertToType(payload)} }`
-    )
+  const eventTypes = Object.entries(events)
+    .map(([event, { payload }]) => `${event}: ${convertToType(payload)};`)
     .join('\n');
+
+  return `interface EventPayloads { ${eventTypes} }`;
 }
 
 /**
