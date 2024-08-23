@@ -1,7 +1,7 @@
 export default `import React, { useState } from 'react';
 import { templateTypes } from './typedir';
 
-const templatename = (props : templatenameProps) => {
+const index = (props : templatenameProps) => {
   const [state, setState] = useState<templateState>();
   return (
     <div data-testid="templatename">
@@ -10,5 +10,5 @@ const templatename = (props : templatenameProps) => {
   )
 };
 
-export default templatename;
+export default index;
 `;

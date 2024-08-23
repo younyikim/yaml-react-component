@@ -34,7 +34,7 @@ export function templateStatusConvertor(
   if (props && state) {
     template = template.replace(
       targetTypeTemplate,
-      `import { ${componentName}Props, ${componentName}State } from '${typePath}';`
+      `import { ${componentName}Props, ${extractStateTypes(componentName, state)} } from '${typePath}';`
     );
     template = template.replace(
       targetPropTemplate,
@@ -60,7 +60,7 @@ export function templateStatusConvertor(
   else if (!props && state) {
     template = template.replace(
       targetTypeTemplate,
-      `import { ${componentName}State } from '${typePath}';`
+      `import { ${extractStateTypes(componentName, state)} } from '${typePath}';`
     );
     template = template.replace(targetPropTemplate, `()`);
   }
@@ -106,4 +106,26 @@ function updateStateTemplate(
           .join('')
       )
     : template.replace(targetStateTemplate, '');
+}
+
+/**
+ * state 정보를 기반으로 TypeScript 타입 문자열을 생성합니다.
+ *
+ * @param componentName - 컴포넌트 이름입니다.
+ * @param state - 정의된 상태입니다.
+ * @returns state의 TypeScript 타입 문자열들을 리턴합니다.
+ */
+function extractStateTypes(
+  componentName: string,
+  state: Component['state']
+): string {
+  const transformedState = state
+    ? Object.entries(state).map(([name]) => name)
+    : null;
+
+  return transformedState && transformedState.length > 0
+    ? transformedState
+        .map((state) => `${componentName}${capitalizeFirstLetter(state)}State`)
+        .join(', ')
+    : '';
 }

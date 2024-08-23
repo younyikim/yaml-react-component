@@ -1,4 +1,5 @@
 import { Command } from 'commander';
+import chalk from 'chalk';
 
 // Utils
 import { generateComponent } from './generateComponent';
@@ -18,7 +19,16 @@ import { ParsedYaml } from '../types/utils';
 export function generateComponentGroup(config: ParsedYaml, cmd: Command) {
   const components = config.components;
 
-  Object.entries(components).forEach(([name]) =>
-    generateComponent(name, config, cmd)
-  );
+  Object.entries(components).forEach(([name]) => {
+    if (name) {
+      generateComponent(name, config, cmd);
+    } else {
+      console.error(
+        chalk.red(
+          'Error: Missing component name in the components section of the YAML file.'
+        )
+      );
+      process.exit(1);
+    }
+  });
 }

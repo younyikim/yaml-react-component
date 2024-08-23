@@ -68,6 +68,18 @@ components:
       links: array
     lazyLoad: false
 
+  Test:
+    props:
+      user: object
+    state:
+      data: object
+      loading: boolean
+    children:
+      - Header
+      - MainContent
+      - Footer
+    lazyLoad: true
+
 events:
   DATA_LOADED:
     payload: object
