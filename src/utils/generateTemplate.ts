@@ -29,8 +29,9 @@ export function generateTemplate(
   const { outDir } = cmd.opts();
 
   const component = components[componentName];
-  const componentDirPath = `${outDir}/${componentName}`;
-  const componentFilePath = `${outDir}/${componentName}/index.tsx`;
+  const componentDirPath = `${outDir}/${uncapitalizeFirstLetter(componentName)}`;
+  const componentFilePath = `${componentDirPath}/index.tsx`;
+  const componentStylePath = `${componentDirPath}/style.css`;
 
   let template = componentTemplate;
   let componentStyleCode = '';
@@ -72,6 +73,7 @@ export function generateTemplate(
   return {
     componentDirPath,
     componentFilePath,
+    componentStylePath,
     template,
     componentStyle: componentStyleCode,
   };

@@ -28,6 +28,7 @@ export interface ParsedYaml {
 export interface GeneratedTemplate {
   componentDirPath: string;
   componentFilePath: string;
+  componentStylePath: string;
   componentStyle: string;
   template: string;
 }
