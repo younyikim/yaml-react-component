@@ -19,7 +19,7 @@ export function generateTypes(parsedYaml: ParsedYaml): string {
     .join('\n\n');
 
   // 이벤트에 대한 TypeScript 인터페이스 생성
-  const eventInterfaces = generateEventInterfaces(events);
+  const eventInterfaces = events ? generateEventInterfaces(events) : '';
 
   return `
       ${componentInterfaces}
