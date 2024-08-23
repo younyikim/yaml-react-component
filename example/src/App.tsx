@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -7,9 +7,13 @@ import { eventBus } from 'yaml-react-component';
 function App() {
   const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    eventBus.publish('test', '');
-  }, []);
+  const event = eventBus();
+
+  event.subscribe('test', (data: Record<string, string>) =>
+    console.log('test event', data)
+  );
+  event.publish('test', { key: 'value' });
+
   return (
     <>
       <div>
