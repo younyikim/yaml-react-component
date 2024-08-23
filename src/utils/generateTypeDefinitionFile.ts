@@ -27,8 +27,6 @@ export function generateTypeDefinitionFile(
   const { existsSync, mkdirSync, outputFileSync } = fsExtra;
 
   try {
-    let typeOutDir = typesDir;
-
     // 디렉토리 경로의 마지막에 '/'가 포함된 경우 에러 처리
     if (typesDir.endsWith('/') || outDir.endsWith('/')) {
       console.error(
@@ -39,27 +37,19 @@ export function generateTypeDefinitionFile(
       process.exit(1);
     }
 
-    // 사용자가 typesDir 옵션을 기본값 그대로 두고, outDir 옵션만 변경했을 경우, typeOutDir을 outDir에 맞춰 업데이트
-    if (
-      typesDir === './src/components/types' &&
-      outDir !== './src/components'
-    ) {
-      typeOutDir = `${outDir}/types`;
-    }
-
     const generatedTypes = generateTypes(config);
 
     // 컴포넌트 타입을 저장할 디렉토리가 존재하지 않는 경우 디렉토리 생성
-    if (!existsSync(typeOutDir)) {
-      mkdirSync(typeOutDir, { recursive: true });
+    if (!existsSync(typesDir)) {
+      mkdirSync(typesDir, { recursive: true });
     }
 
     // 컴포넌트 타입을 저장할 디렉토리 경로에 index.d.ts 파일을 생성하고 생성한 TypeScript 타입을 적는다.
-    outputFileSync(`${typeOutDir}/index.d.ts`, generatedTypes);
+    outputFileSync(`${typesDir}/index.d.ts`, generatedTypes);
 
     console.log(
       chalk.green(
-        `Successfully generated TypeScript definitions at: ${chalk.cyan(typeOutDir)}`
+        `Successfully generated TypeScript definitions at: ${chalk.cyan(typesDir)}`
       )
     );
   } catch (error) {
