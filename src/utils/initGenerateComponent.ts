@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import { yamlParser } from './yamlParser';
 import { generateComponentGroup } from './generateComponentGroup';
 import { generateTypeDefinitionFile } from './generateTypeDefinitionFile';
+import { checkYamlValidation } from './checkYamlValidation';
 
 /**
  * CLI 명령을 초기화하고 YAML 파일을 기반으로 React 컴포넌트와 TypeScript 타입 정의 파일을 생성하는 함수.
@@ -35,6 +36,8 @@ export function initGenerateComponent(program: Command) {
       try {
         const parsedYaml = yamlParser(file);
 
+        checkYamlValidation(parsedYaml);
+
         // YAML 파일을 바탕으로 TypeScript 타입을 저장할 디렉토리와 파일을 생성
         generateTypeDefinitionFile(parsedYaml, outDir, types);
 
@@ -43,7 +46,7 @@ export function initGenerateComponent(program: Command) {
 
         console.log(chalk.green('Components generated successfully.'));
       } catch (error) {
-        console.error(chalk.red(`Error: ${error}`));
+        console.error(chalk.red(error));
         process.exit(1);
       }
     });
