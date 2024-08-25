@@ -10,7 +10,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true,
-    "types": ["@testing-library/jest-dom", "node"]
+    "types": ["@testing-library/jest-dom", "node", "jest", "@types/jest"]
   },
   "tsc-alias": {
     "resolveFullPaths": true,
