@@ -1,6 +1,5 @@
 import yaml from 'js-yaml';
 import fsExtra from 'fs-extra';
-import chalk from 'chalk';
 
 // Typings
 import { ParsedYaml } from '../types/utils';
@@ -17,9 +16,7 @@ export function yamlParser(filePath: string): ParsedYaml {
 
   try {
     if (!pathExistsSync(filePath)) {
-      console.error(
-        `Error: File does not exist at path ${chalk.cyan(filePath)}`
-      );
+      console.error(`Error: File does not exist at path "${filePath}"`);
       process.exit(1);
     }
 
