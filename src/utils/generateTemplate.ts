@@ -1,11 +1,10 @@
 import { Command } from 'commander';
 
-// Template
-import componentTemplate from '../templates/components/componentTemplate';
-
 // Utils
-import { templateStatusConvertor } from './templateStatusConvertor';
 import { uncapitalizeFirstLetter } from './util';
+import { generateImportState } from './generateImportState';
+import { generateState } from './generateState';
+import { generateEventState } from './generateEventState';
 
 // Typings
 import { GeneratedTemplate, ParsedYaml } from '../types/utils';
@@ -32,49 +31,61 @@ export function generateTemplate(
   const componentDirPath = `${outDir}/${uncapitalizeFirstLetter(componentName)}`;
   const componentFilePath = `${componentDirPath}/index.tsx`;
   const componentStylePath = `${componentDirPath}/style.css`;
+  const componentStyle = styles ? styles[componentName] : null;
 
-  let template = componentTemplate;
-  let componentStyleCode = '';
+  const importStatement = generateImportState(
+    componentName,
+    component,
+    config,
+    cmd
+  );
+  const propsStatement = component?.props
+    ? `props : ${componentName}Props`
+    : '';
+  const stateStatement = generateState(componentName, component);
+  const eventStatement = generateEventState(component);
 
-  // children 정보를 템플릿에 반영
-  template = component?.children
-    ? template.replace(
-        `templatename Component`,
-        // 코드 포멧팅을 목적으로 추가한 공백입니다.
-        `templatename Component\n      {children}`
-      )
-    : template;
+  let template = importStatement + '\n\n';
 
-  // 컴포넌트의 이름을 템플릿에 반영
-  template = template.replaceAll('templatename', componentName);
-
-  // props, state 정보를 템플릿에 반영
-  if (component?.props !== undefined || component?.state !== undefined) {
-    template = templateStatusConvertor(componentName, component, template, cmd);
+  template += 'const index = (' + propsStatement + ') => {\n';
+  if (component?.children) {
+    template += '  const { children } = props;' + '\n\n';
   }
 
-  if (styles) {
-    const componentStyle = styles[componentName];
-
-    // 스타일이 있는 컴포넌트
-    if (componentStyle) {
-      componentStyleCode = componentStyle.css;
-
-      template = template.replace(
-        `className="templateclass"`,
-        `className="${uncapitalizeFirstLetter(componentName)}"`
-      );
-    } else {
-      template = template.replace(`import './style.css';`, '');
-      template = template.replace(` className="templateclass"`, '');
-    }
+  if (stateStatement) {
+    template += '  ' + stateStatement + '\n  ';
   }
+
+  if (eventStatement) {
+    template += stateStatement
+      ? '\n' + eventStatement + '\n'
+      : eventStatement + '\n';
+  }
+
+  template += '  return (\n';
+
+  if (componentStyle) {
+    template += `    <div data-testid="${componentName}" className="${uncapitalizeFirstLetter(componentName)}">\n`;
+  } else {
+    template += `    <div data-testid="${componentName}">\n`;
+  }
+  template += `      <h1>${componentName} Component</h1>\n`;
+
+  if (component?.children) {
+    template += `      {children}\n`;
+  }
+
+  template += '    </div>\n';
+  template += '  )\n';
+  template += '};\n\n';
+
+  template += 'export default index;\n';
 
   return {
     componentDirPath,
     componentFilePath,
     componentStylePath,
     template,
-    componentStyle: componentStyleCode,
+    componentStyle: componentStyle ? componentStyle.css : '',
   };
 }

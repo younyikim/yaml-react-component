@@ -1,4 +1,4 @@
-import { convertTypeToValue } from '../../utils/convertTypeToValue';
+import { convertTypeToValue } from '../../utils/util';
 
 describe('convertTypeToValue', () => {
   it('should return "{}" for "object" type', () => {

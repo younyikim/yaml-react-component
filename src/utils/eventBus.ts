@@ -6,7 +6,7 @@ import { EventBusType, EventHandler } from '../types/utils';
  *
  * @returns {EventBus} 이벤트 관리를 위한 메서드를 포함하는 EventBus 인스턴스입니다.
  */
-export function eventBus(): EventBusType {
+export const eventBus: EventBusType = (() => {
   // 이벤트 구독자를 추적하는 객체
   const subscribers: { [event: string]: EventHandler<any>[] } = {};
 
@@ -59,4 +59,4 @@ export function eventBus(): EventBusType {
       }
     },
   };
-}
+})();
