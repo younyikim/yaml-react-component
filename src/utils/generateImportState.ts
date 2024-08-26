@@ -1,7 +1,5 @@
 import { Command } from 'commander';
-
-// Utils
-import { capitalizeFirstLetter, transformedState } from './util';
+import path from 'path';
 
 // Typings
 import { Component, ParsedYaml } from '../types/utils';
@@ -27,7 +25,20 @@ export function generateImportState(
 ): string {
   const { props, state, subscriptions, publications } = component;
   const { styles } = config;
-  const { types: typePath } = cmd.opts();
+  const { types: typePath, outDir } = cmd.opts();
+
+  // 타입 디렉토리 절대 경로
+  const absoluteTypesDir = path.resolve(typePath);
+  // 컴포넌트 디렉토리 절대 경로
+  const absoluteComponentDir = path.resolve(outDir, componentName);
+
+  // typesDir에서 componentDir로의 상대 경로를 계산
+  let relativeTypePath = path.relative(absoluteComponentDir, absoluteTypesDir);
+
+  // 상대 경로에서 현재 디렉토리를 가리키는 '.'을 제거
+  if (!relativeTypePath.startsWith('.')) {
+    relativeTypePath = `./${relativeTypePath}`;
+  }
 
   const reactImportState = [];
   const typeImportState = [];
@@ -40,11 +51,6 @@ export function generateImportState(
   // state가 존재하는 경우
   if (state) {
     reactImportState.push('useState');
-    transformedState(state).map((item) =>
-      typeImportState.push(
-        `${componentName}${capitalizeFirstLetter(item.name)}State`
-      )
-    );
   }
 
   // subscriptions 또는 publications이 존재하는 경우
@@ -55,12 +61,12 @@ export function generateImportState(
 
   const reactStatement =
     reactImportState.length > 0
-      ? `import React, { ${reactImportState.join(', ')} } from 'react';`
+      ? `import { ${reactImportState.join(', ')} } from 'react';`
       : `import React from 'react';`;
 
   const typeStatement =
     typeImportState.length > 0
-      ? `import { ${typeImportState.join(', ')} } from '${typePath}';`
+      ? `import { ${typeImportState.join(', ')} } from '${relativeTypePath}';`
       : '';
 
   const styleStatement =

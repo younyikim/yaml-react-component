@@ -1,5 +1,5 @@
 // Utils
-import { capitalizeFirstLetter } from './util';
+import { convertToType } from './util';
 
 // Typings
 import { Component, ParsedYaml } from '../types/utils';
@@ -43,12 +43,8 @@ export function generateComponentInterface(
   const propsType = component.props
     ? generateType(component.props, !!component.children)
     : '{}';
-  const stateType = component.state
-    ? generateStateInterfaces(name, component.state)
-    : '';
 
-  return `interface ${name}Props ${propsType}
-  ${stateType}`;
+  return `export interface ${name}Props ${propsType}`;
 }
 
 /**
@@ -73,26 +69,6 @@ export function generateType(
 }
 
 /**
- * 컴포넌트의 상태를 위한 TypeScript 인터페이스를 생성합니다.
- *
- * @param componentName - 컴포넌트의 이름입니다.
- * @param state - 상태를 정의하는 필드와 타입의 딕셔너리입니다.
- * @returns 상태에 대한 TypeScript 인터페이스 정의가 포함된 문자열을 반환합니다.
- */
-function generateStateInterfaces(
-  componentName: string,
-  state: Record<string, string>
-): string {
-  return Object.entries(state)
-    .map(([stateName, stateType]) => {
-      const interfaceName = `${componentName}${capitalizeFirstLetter(stateName)}State`;
-      const typeDefinition = convertToType(stateType);
-      return `interface ${interfaceName} { ${stateName}: ${typeDefinition} }`;
-    })
-    .join('\n');
-}
-
-/**
  * 이벤트의 이름과 페이로드 타입에 기반하여 TypeScript 인터페이스를 생성합니다.
  *
  * @param events - 이벤트의 이름과 페이로드 타입을 포함하는 딕셔너리입니다.
@@ -105,30 +81,5 @@ function generateEventInterfaces(
     .map(([event, { payload }]) => `${event}: ${convertToType(payload)};`)
     .join('\n');
 
-  return `interface EventPayloads { ${eventTypes} }`;
-}
-
-/**
- * YAML 타입 정의를 TypeScript 타입으로 변환합니다.
- *
- * @param type - YAML 타입 정의입니다.
- * @returns 해당 YAML 타입 정의에 대한 TypeScript 타입을 반환합니다.
- */
-function convertToType(type: string): string {
-  switch (type) {
-    case 'object':
-      return 'Record<string, any>';
-    case 'array':
-      return 'any[]';
-    case 'boolean':
-      return 'boolean';
-    case 'number':
-      return 'number';
-    case 'string':
-      return 'string';
-    case 'none':
-      return 'void';
-    default:
-      return 'any';
-  }
+  return `export interface EventPayloads { ${eventTypes} }`;
 }

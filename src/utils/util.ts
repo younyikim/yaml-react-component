@@ -23,6 +23,31 @@ export function uncapitalizeFirstLetter(str: string): string {
 }
 
 /**
+ * YAML 타입 정의를 TypeScript 타입으로 변환합니다.
+ *
+ * @param type - YAML 타입 정의입니다.
+ * @returns 해당 YAML 타입 정의에 대한 TypeScript 타입을 반환합니다.
+ */
+export function convertToType(type: string): string {
+  switch (type) {
+    case 'object':
+      return 'Record<string, unknown>';
+    case 'array':
+      return 'unknown[]';
+    case 'boolean':
+      return 'boolean';
+    case 'number':
+      return 'number';
+    case 'string':
+      return 'string';
+    case 'none':
+      return 'void';
+    default:
+      return 'unknown';
+  }
+}
+
+/**
  * YAML 타입 정의를 기본 값으로 변경합니다.
  *
  * @param type - YAML 타입 정의입니다.
@@ -54,6 +79,7 @@ export const transformedState = (state: Component['state']) => {
     ? Object.entries(state).map(([name, value]) => ({
         name,
         value: convertTypeToValue(value),
+        type: convertToType(value),
       }))
     : [];
 };

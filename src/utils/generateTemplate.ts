@@ -42,12 +42,12 @@ export function generateTemplate(
   const propsStatement = component?.props
     ? `props : ${componentName}Props`
     : '';
-  const stateStatement = generateState(componentName, component);
+  const stateStatement = generateState(component);
   const eventStatement = generateEventState(component);
 
   let template = importStatement + '\n\n';
 
-  template += 'const index = (' + propsStatement + ') => {\n';
+  template += `const ${componentName} = (` + propsStatement + ') => {\n';
   if (component?.children) {
     template += '  const { children } = props;' + '\n\n';
   }
@@ -79,7 +79,7 @@ export function generateTemplate(
   template += '  )\n';
   template += '};\n\n';
 
-  template += 'export default index;\n';
+  template += `export default ${componentName};\n`;
 
   return {
     componentDirPath,

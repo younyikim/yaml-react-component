@@ -15,18 +15,15 @@ import { Component } from '../types/utils';
  * @param component - 상태를 포함하는 컴포넌트 객체입니다. `state` 속성을 통해 상태 정보를 가져옵니다.
  * @returns 컴포넌트 상태를 위한 `useState` 훅 코드를 포함하는 문자열을 반환합니다.
  */
-export function generateState(
-  componentName: string,
-  component: Component
-): string {
+export function generateState(component: Component): string {
   const { state } = component;
 
   const stateStatement = transformedState(state)
     .map((state, index) =>
       index === 0
-        ? `const [${state.name}, set${capitalizeFirstLetter(state.name)}] = useState<${componentName}${capitalizeFirstLetter(state.name)}State>(${state.value});`
+        ? `const [${state.name}, set${capitalizeFirstLetter(state.name)}] = useState<${state.type}>(${state.value});`
         : // 두 번째 요소 이후의 경우, 줄바꿈과 공백을 추가하여 변수 선언을 포맷팅합니다.
-          `\n  const [${state.name}, set${capitalizeFirstLetter(state.name)}] = useState<${componentName}${capitalizeFirstLetter(state.name)}State>(${state.value});`
+          `\n  const [${state.name}, set${capitalizeFirstLetter(state.name)}] = useState<${state.type}>(${state.value});`
     )
     .join('');
 
