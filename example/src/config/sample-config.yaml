@@ -1,0 +1,140 @@
+components:
+  Dashboard:
+    props:
+      user: object
+    state:
+      data: object
+      loading: boolean
+    subscriptions:
+      - event: DATA_LOADED
+        action: handleDataLoaded
+    publications:
+      - DASHBOARD_LOADED
+    children:
+      - Header
+      - MainContent
+      - Footer
+
+  Header:
+    props:
+      title: string
+      user: object
+    lazyLoad: false
+    publications:
+      - HEADER_CLICKED
+    children:
+      - UserMenu
+
+  UserMenu:
+    props:
+      user: object
+      menuItems: array
+    state:
+      isOpen: boolean
+    subscriptions:
+      - event: TOGGLE_MENU
+        action: toggleMenu
+    publications:
+      - MENU_TOGGLED
+
+  MainContent:
+    props:
+      user: object
+    state:
+      posts: array
+      loading: boolean
+    subscriptions:
+      - event: LOAD_POSTS
+        action: loadPosts
+    children:
+      - PostList
+      - PostDetails
+
+  PostList:
+    props:
+      posts: array
+    lazyLoad: true
+    publications:
+      - POST_SELECTED
+
+  PostDetails:
+    props:
+      post: object
+    lazyLoad: true
+
+  Footer:
+    props:
+      year: number
+      links: array
+    lazyLoad: false
+
+  Test:
+    props:
+      user: object
+    state:
+      data: object
+      loading: boolean
+    children:
+      - Header
+      - MainContent
+      - Footer
+    lazyLoad: true
+
+events:
+  DATA_LOADED:
+    payload: object
+  TOGGLE_MENU:
+    payload: none
+  LOAD_POSTS:
+    payload: object
+  POST_SELECTED:
+    payload: object
+  DASHBOARD_LOADED:
+    payload: none
+  HEADER_CLICKED:
+    payload: none
+  MENU_TOGGLED:
+    payload: none
+  USER_PROFILE_VIEWED:
+    payload: none
+  USER_DETAILS_EDITED:
+    payload: object
+
+hooks:
+  useUserData:
+    args:
+      userId: number
+    returns:
+      data: object
+      loading: boolean
+  usePosts:
+    args: none
+    returns:
+      posts: array
+      loading: boolean
+
+styles:
+  Dashboard:
+    css: |
+      .dashboard {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+  Header:
+    css: |
+      .header {
+        background-color: #333;
+        color: white;
+        padding: 1rem;
+      }
+  Footer:
+    css: |
+      .footer {
+        background-color: #f1f1f1;
+        text-align: center;
+        padding: 1rem;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+      }
