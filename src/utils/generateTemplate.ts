@@ -5,6 +5,7 @@ import { uncapitalizeFirstLetter } from './util';
 import { generateImportState } from './generateImportState';
 import { generateState } from './generateState';
 import { generateEventState } from './generateEventState';
+import { generateChildState } from './generateChildState';
 
 // Typings
 import { GeneratedTemplate, ParsedYaml } from '../types/utils';
@@ -22,7 +23,8 @@ import { GeneratedTemplate, ParsedYaml } from '../types/utils';
 export function generateTemplate(
   componentName: string,
   config: ParsedYaml,
-  cmd: Command
+  cmd: Command,
+  renderingOrder: string[]
 ): GeneratedTemplate {
   const { components, styles } = config;
   const { outDir } = cmd.opts();
@@ -39,18 +41,14 @@ export function generateTemplate(
     config,
     cmd
   );
-  const propsStatement = component?.props
-    ? `props : ${componentName}Props`
-    : '';
+
   const stateStatement = generateState(component);
   const eventStatement = generateEventState(component);
+  const childrenStatement = generateChildState(component, config);
 
   let template = importStatement + '\n\n';
 
-  template += `const ${componentName} = (` + propsStatement + ') => {\n';
-  if (component?.children) {
-    template += '  const { children } = props;' + '\n\n';
-  }
+  template += `const ${componentName} = ( ) => {\n`;
 
   if (stateStatement) {
     template += '  ' + stateStatement + '\n  ';
@@ -71,8 +69,8 @@ export function generateTemplate(
   }
   template += `      <h1>${componentName} Component</h1>\n`;
 
-  if (component?.children) {
-    template += `      {children}\n`;
+  if (childrenStatement) {
+    template += `${childrenStatement}\n`;
   }
 
   template += '    </div>\n';

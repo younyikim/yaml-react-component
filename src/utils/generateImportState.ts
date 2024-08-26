@@ -1,6 +1,9 @@
 import { Command } from 'commander';
 import path from 'path';
 
+// Utils
+import { uncapitalizeFirstLetter } from './util';
+
 // Typings
 import { Component, ParsedYaml } from '../types/utils';
 
@@ -23,8 +26,8 @@ export function generateImportState(
   config: ParsedYaml,
   cmd: Command
 ): string {
-  const { props, state, subscriptions, publications } = component;
-  const { styles } = config;
+  const { props, state, subscriptions, publications, children } = component;
+  const { components, styles } = config;
   const { types: typePath, outDir } = cmd.opts();
 
   // 타입 디렉토리 절대 경로
@@ -34,14 +37,18 @@ export function generateImportState(
 
   // typesDir에서 componentDir로의 상대 경로를 계산
   let relativeTypePath = path.relative(absoluteComponentDir, absoluteTypesDir);
+  // 현재 컴포넌트 위치에서 import할 컴포넌트의 상대 경로를 계산
+  let relativeDirPath = path.relative(absoluteComponentDir, outDir);
 
   // 상대 경로에서 현재 디렉토리를 가리키는 '.'을 제거
   if (!relativeTypePath.startsWith('.')) {
     relativeTypePath = `./${relativeTypePath}`;
   }
 
-  const reactImportState = [];
-  const typeImportState = [];
+  const reactImportState: string[] = [];
+  const typeImportState: string[] = [];
+  const childImportState: string[] = [];
+  const dynamicImportState: string[] = [];
 
   // props가 존재하는 경우
   if (props) {
@@ -56,13 +63,42 @@ export function generateImportState(
   // subscriptions 또는 publications이 존재하는 경우
   if (subscriptions || publications) {
     reactImportState.push('useEffect');
-    typeImportState.push('EventPayloads');
+  }
+
+  if (children) {
+    children.forEach((child) => {
+      if (components[child]?.lazyLoad) {
+        // lazy load 컴포넌트 import
+        childImportState.push(
+          `const ${child} = lazy(() => import('${relativeDirPath}/${uncapitalizeFirstLetter(child)}'));`
+        );
+
+        // lazy load 컴포넌트를 사용하는 경우,lazy, Suspense를 import한다.
+        if (
+          !reactImportState.includes('lazy') &&
+          !reactImportState.includes('Suspense')
+        ) {
+          reactImportState.push('lazy');
+          reactImportState.push('Suspense');
+        }
+      } else {
+        // 일반 import
+        childImportState.push(
+          `import ${child} from '${relativeDirPath}/${uncapitalizeFirstLetter(child)}';`
+        );
+      }
+    });
   }
 
   const reactStatement =
     reactImportState.length > 0
       ? `import { ${reactImportState.join(', ')} } from 'react';`
       : `import React from 'react';`;
+
+  const eventBusStatement =
+    subscriptions || publications
+      ? `import { eventBus } from 'yaml-react-component';`
+      : '';
 
   const typeStatement =
     typeImportState.length > 0
@@ -72,17 +108,20 @@ export function generateImportState(
   const styleStatement =
     styles && styles[componentName] ? `import './style.css';` : '';
 
-  const eventBusStatement =
-    subscriptions || publications
-      ? `import { eventBus } from 'yaml-react-component';`
-      : '';
+  const childrenStatement =
+    childImportState.length > 0 ? childImportState.join('\n') : '';
+
+  const dynamicStatement =
+    dynamicImportState.length > 0 ? dynamicImportState.join('\n') : '';
 
   // 모든 import 문을 조합하여 최종 import 문 문자열 생성
   const importStatement = [
     reactStatement,
     eventBusStatement,
+    childrenStatement,
     typeStatement,
     styleStatement,
+    dynamicStatement,
   ]
     .filter((statement) => statement !== '') // 빈 문자열 필터링
     .join('\n');

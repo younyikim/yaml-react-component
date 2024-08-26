@@ -4,6 +4,7 @@ import fsExtra from 'fs-extra';
 
 // Utils
 import { generateTemplate } from './generateTemplate';
+import { topologicalSort } from './topologicalSort';
 
 // Typings
 import { ParsedYaml } from '../types/utils';
@@ -25,13 +26,15 @@ export function generateComponent(
 ) {
   const { existsSync, outputFileSync } = fsExtra;
 
+  const renderingOrder = topologicalSort(config);
+
   const {
     componentDirPath,
     componentFilePath,
     componentStylePath,
     template,
     componentStyle,
-  } = generateTemplate(componentName, config, cmd);
+  } = generateTemplate(componentName, config, cmd, renderingOrder);
 
   // 컴포넌트 파일 경로에 이미 동일한 파일이 존재하는 경우
   if (existsSync(componentFilePath)) {
