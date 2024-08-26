@@ -25,6 +25,9 @@ Yaml React Component Generator는 YAML 구성 파일을 통해 React 컴포넌�
 - **동적 컴포넌트 로딩**
   - YAML 구성 파일을 기반으로 지연 로딩이 필요한 컴포넌트를 `React.lazy()`와 `Suspense`를 사용하여 처리합니다.
 
+## Demo
+https://github.com/user-attachments/assets/cd05108a-c711-49f2-bd47-7a1392529f36
+
 ---
 
 ## 설치 및 사용법
@@ -134,3 +137,5 @@ return (
 ```bash
 pnpm dev
 ```
+
+
