@@ -35,15 +35,13 @@ export function generateComponent(
 
   // 컴포넌트 파일 경로에 이미 동일한 파일이 존재하는 경우
   if (existsSync(componentFilePath)) {
-    throw new Error(
-      chalk.red(`File already exists in this path "${componentFilePath}".`)
-    );
+    throw new Error(`File already exists in this path "${componentFilePath}".`);
   }
 
   // 컴포넌트 스타일 파일 경로에 이미 동일한 파일이 존재하는 경우
   if (existsSync(componentStylePath) && componentStyle !== '') {
     throw new Error(
-      chalk.red(`File already exists in this path "${componentStylePath}".`)
+      `File already exists in this path "${componentStylePath}".`
     );
   }
 
@@ -62,6 +60,8 @@ export function generateComponent(
       )
     );
   } catch (error) {
-    throw new Error(chalk.red(error));
+    throw new Error(
+      `Fail to create file in this path "${componentFilePath}" or "${componentStylePath}"`
+    );
   }
 }
