@@ -119,7 +119,6 @@ pnpm dev
 
 ---
 
-
 ## 예제 프로젝트
 
 Yaml React Component Generator의 동작을 직접 클라이언트에서 확인해볼 수 있도록 예제 프로젝트를 제공합니다.
@@ -166,7 +165,7 @@ pnpm dev
 
 이 프로젝트는 다음과 같은 주요 의존성에 의존하고 있습니다:
 
-- **[typescript](https://www.npmjs.com/package/typescript)**: TypeScript 언어 자체.
+- **[typescript](https://www.npmjs.com/package/typescript)**
 - **[commander](https://www.npmjs.com/package/commander)**: CLI 명령어를 쉽게 작성할 수 있게 도와주는 라이브러리.
 - **[fs-extra](https://www.npmjs.com/package/fs-extra)**: Node.js 파일 시스템 작업을 위한 유틸리티 라이브러리.
 - **[jest](https://www.npmjs.com/package/jest)**: JavaScript 테스트 프레임워크.
