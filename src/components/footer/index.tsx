@@ -1,6 +1,7 @@
 import React from 'react';
-import { FooterProps } from '../types';
 import './style.css';
+
+interface FooterProps { year: number; links: unknown[] }
 
 const Footer = ( ) => {
   return (

@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { eventBus } from 'yaml-react-component';
 import UserMenu from '../userMenu';
-import { HeaderProps } from '../types';
 import './style.css';
+
+interface HeaderProps { title: string; user: Record<string, unknown> }
 
 const Header = ( ) => {
   useEffect(() => {
