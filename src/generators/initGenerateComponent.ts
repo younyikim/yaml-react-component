@@ -14,7 +14,7 @@ import { checkYamlValidation } from '../utils/checkYamlValidation';
  */
 
 export function initGenerateComponent(options: any, cmd: Command) {
-  const { file, outDir, types } = options;
+  const { file } = options;
 
   const parsedYaml = yamlParser(file);
 

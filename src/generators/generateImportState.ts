@@ -26,9 +26,9 @@ export function generateImportState(
   config: ParsedYaml,
   cmd: Command
 ): string {
-  const { props, state, subscriptions, publications, children } = component;
+  const { state, subscriptions, publications, children } = component;
   const { components, styles } = config;
-  const { types: typePath, outDir } = cmd.opts();
+  const { outDir } = cmd.opts();
 
   // 컴포넌트 디렉토리 절대 경로
   const absoluteComponentDir = path.resolve(outDir, componentName);
