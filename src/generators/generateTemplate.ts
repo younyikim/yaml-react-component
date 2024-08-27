@@ -24,8 +24,7 @@ import { GeneratedTemplate, ParsedYaml } from '../types/utils';
 export function generateTemplate(
   componentName: string,
   config: ParsedYaml,
-  cmd: Command,
-  renderingOrder: string[]
+  cmd: Command
 ): GeneratedTemplate {
   const { components, styles } = config;
   const { outDir } = cmd.opts();

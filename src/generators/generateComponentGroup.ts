@@ -3,6 +3,7 @@ import chalk from 'chalk';
 
 // Utils
 import { generateComponent } from './generateComponent';
+import { topologicalSort } from '../utils/topologicalSort';
 
 // Typings
 import { ParsedYaml } from '../types/utils';
@@ -17,9 +18,9 @@ import { ParsedYaml } from '../types/utils';
  */
 
 export function generateComponentGroup(config: ParsedYaml, cmd: Command) {
-  const components = config.components;
+  const sortedComponentNames = topologicalSort(config);
 
-  Object.entries(components).forEach(([name]) => {
+  sortedComponentNames.forEach((name) => {
     if (name) {
       generateComponent(name, config, cmd);
     } else {
