@@ -42,12 +42,13 @@ https://github.com/user-attachments/assets/cd05108a-c711-49f2-bd47-7a1392529f36
 │   ├── cli.ts               # CLI 엔트리 포인트
 │   ├── components/          # 생성된 React 컴포넌트 디렉토리
 │   ├── config/              # YAML 구성 파일
+│   ├── generators/          # 컴포넌트 및 상태 생성 관련 함수들
 │   ├── tests/               # 테스트 파일 디렉토리
 │   ├── types/               # 타입 정의 파일
-│   └── utils/               # 유틸리티 함수 및 Pub/Sub 이벤트 시스템 코드
+│   └── utils/               # 유틸리티 함수
 └── example/                 # 예제 프로젝트 디렉토리
     └── src/                 # 예제 소스 코드
-        ├── components/      # 예제 프로젝트에서 생성된 React 컴포넌트 디렉토리
+        └── components/      # 예제 프로젝트에서 생성된 React 컴포넌트 디렉토리
 ```
 
 ---
@@ -160,3 +161,15 @@ return (
 ```bash
 pnpm dev
 ```
+
+## 주요 의존성
+
+이 프로젝트는 다음과 같은 주요 의존성에 의존하고 있습니다:
+
+- **[typescript](https://www.npmjs.com/package/typescript)**: TypeScript 언어 자체.
+- **[commander](https://www.npmjs.com/package/commander)**: CLI 명령어를 쉽게 작성할 수 있게 도와주는 라이브러리.
+- **[fs-extra](https://www.npmjs.com/package/fs-extra)**: Node.js 파일 시스템 작업을 위한 유틸리티 라이브러리.
+- **[jest](https://www.npmjs.com/package/jest)**: JavaScript 테스트 프레임워크.
+- **[js-yaml](https://www.npmjs.com/package/js-yaml)**: YAML 파일을 파싱하고 생성하는 라이브러리.
+- **[tsc-alias](https://www.npmjs.com/package/tsc-alias)**: TypeScript 컴파일 시 경로 별칭을 처리하는 도구.
+- **[tsx](https://www.npmjs.com/package/tsx)**: TypeScript 및 JSX/TSX 파일을 실행할 수 있는 도구.
