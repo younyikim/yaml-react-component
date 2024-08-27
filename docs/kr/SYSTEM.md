@@ -335,7 +335,7 @@ Pub/Sub(발행/구독) 이벤트 시스템을 통해 컴포넌트 간의 이벤�
 이 때, 자식 컴포넌트가 지연 로딩이 필요한 경우, `React.lazy()`를 사용해 동적으로 import하고, 자식 컴포넌트를 `<Suspense>`로 감싸서 추가합니다.
 
 - **관련 모듈**
-  - [generateDynamicState.ts](generateDynamicState) : 지연 로딩이 필요한 경우, 컴포넌트를 `<Suspense>`로 감싸고, 로딩 중일 때 표시할 내용을 포함하는 JSX 구문을 반환합니다.
+  - [generateDynamicState.ts](https://github.com/younyikim/yaml-react-component/blob/main/src/generators/generateDynamicState.ts) : 지연 로딩이 필요한 경우, 컴포넌트를 `<Suspense>`로 감싸고, 로딩 중일 때 표시할 내용을 포함하는 JSX 구문을 반환합니다.
 
 ### 3.8 오류 처리 및 경계 설정
 
@@ -370,7 +370,7 @@ YAML 구성 파일이 잘못된 경우, 사용자가 문제를 쉽게 식별하�
 
   - [Jest](https://www.npmjs.com/package/jest) : Test 프레임워크
 
-- [Unit Test](https://www.npmjs.com/package/jest)
+- [Unit Test](https://github.com/younyikim/yaml-react-component/tree/main/src/tests/unit)
   개별 모듈이나 함수가 예상대로 작동하는지 확인하기 위해 일부 함수에 Unit Test를 진행했습니다.
   - Unit Test 진행 함수
     - checkYamlValidation.ts
