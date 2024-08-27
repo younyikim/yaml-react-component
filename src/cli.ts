@@ -15,11 +15,6 @@ program
     './src/config/sample-config.yaml'
   )
   .option('-d, --outDir <path>', 'Output directory', './src/components')
-  .option(
-    '-t, --types <path>',
-    'Path to generate component TypeScript types',
-    './src/components/types'
-  )
   .action(async (options, cmd: Command) => {
     try {
       initGenerateComponent(options, cmd);
