@@ -5,7 +5,7 @@ import MainContent from '../mainContent';
 import Footer from '../footer';
 import './style.css';
 
-interface DashboardProps { user: Record<string, unknown> }
+interface DashboardProps { user: Record<string, unknown>; }
 
 const Dashboard = ( ) => {
   const [data, setData] = useState<Record<string, unknown>>({});

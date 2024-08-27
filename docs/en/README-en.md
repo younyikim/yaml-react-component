@@ -11,6 +11,7 @@ The YAML React Component Generator is a command-line tool designed to simplify t
 ## Coding Challenge Submission
 
 - React component code generated from the provided YAML example: [src/components](https://github.com/younyikim/yaml-react-component/tree/main/src/components)
+- System Architecture and Key Decisions : [SYSTEM.md](https://github.com/younyikim/yaml-react-component/blob/main/docs/en/SYSTEM-en.md)
 
 ---
 
@@ -105,7 +106,6 @@ gcpt [options]
 
 - `-f, --file <path>` : Specifies the path to the YAML file. Default is ./src/config/sample-config.yaml.
 - `-d, --outDir <path>` : Specifies the output directory for the generated components. Default is ./src/components.
-- `-t, --types <path>` : Specifies the path where TypeScript type files for the generated components will be saved. Default is ./src/components/types.
 
 #### 2. Run the Project in Development Mode
 

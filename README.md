@@ -2,7 +2,7 @@
 
 ![Safari](https://github.com/user-attachments/assets/914be4b6-41fe-4e8c-9542-e86a083cb2c1)
 
-Language : Korean | [English](https://github.com/younyikim/yaml-react-component/blob/main/docs/en/MAIN_README.md)
+Language : Korean | [English](https://github.com/younyikim/yaml-react-component/blob/main/docs/en/README-en.md)
 
 ## 개요
 
@@ -11,6 +11,7 @@ Yaml React Component Generator는 YAML 구성 파일을 통해 React 컴포넌�
 ## 코딩 챌린지 제출물
 
 - 제공된 YAML 예제를 기반으로 생성된 React 컴포넌트 코드 : [src/components](https://github.com/younyikim/yaml-react-component/tree/main/src/components)
+- 시스템 아키텍처 및 주요 결정 사항 : [SYSTEM.md](https://github.com/younyikim/yaml-react-component/blob/main/docs/kr/SYSTEM.md)
 
 ---
 
@@ -105,7 +106,6 @@ gcpt [options]
 
 - `-f, --file <path>` : YAML 파일의 경로를 지정합니다. 기본값은 ./src/config/sample-config.yaml입니다.
 - `-d, --outDir <path>` : 생성된 컴포넌트의 출력 디렉토리를 지정합니다. 기본값은 ./src/components입니다.
-- `-t, --types <path>` : 생성된 컴포넌트의 TypeScript 타입 파일이 저장될 경로를 지정합니다. 기본값은 ./src/components/types입니다.
 
 #### 2. 개발 환경에서 프로젝트 실행하기
 
