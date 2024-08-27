@@ -26,13 +26,33 @@ Yaml React Component Generator는 YAML 구성 파일을 통해 React 컴포넌�
   - YAML 구성 파일을 기반으로 지연 로딩이 필요한 컴포넌트를 `React.lazy()`와 `Suspense`를 사용하여 처리합니다.
 
 ## Demo
+
 https://github.com/user-attachments/assets/cd05108a-c711-49f2-bd47-7a1392529f36
+
+---
+
+## 폴더 구조
+
+```bash
+📦 react-yaml-component-generator/
+├── package.json             # 프로젝트 설정 파일 및 스크립트
+├── src/                     # 주요 소스 코드 디렉토리
+│   ├── cli.ts               # CLI 엔트리 포인트
+│   ├── components/          # 생성된 React 컴포넌트 디렉토리
+│   ├── config/              # YAML 구성 파일
+│   ├── tests/               # 테스트 파일 디렉토리
+│   ├── types/               # 타입 정의 파일
+│   └── utils/               # 유틸리티 함수 및 Pub/Sub 이벤트 시스템 코드
+└── example/                 # 예제 프로젝트 디렉토리
+    └── src/                 # 예제 소스 코드
+        ├── components/      # 예제 프로젝트에서 생성된 React 컴포넌트 디렉토리
+```
 
 ---
 
 ## 설치 및 사용법
 
-1. 설치
+###### 1. 설치
 
 ```bash
 git clone https://github.com/younyikim/yaml-react-component.git
@@ -40,7 +60,7 @@ cd yaml-react-component
 pnpm i
 ```
 
-2. YAML 구성 파일 작성
+###### 2. YAML 구성 파일 작성
 
 프로젝트의 `src/config` 디렉토리를 생성하고, YAML 구성 파일을 작성합니다.
 
@@ -58,25 +78,25 @@ pnpm i
 
 **사용 방법**
 
-1. 프로젝트 빌드
+###### 1. 프로젝트 빌드
 
 ```bash
 pnpm build
 ```
 
-2. 프로젝트 전역 설치
+###### 2. 프로젝트 전역 설치
 
 ```bash
 npm i -g
 ```
 
-3. `gcpt` 명령어 실행
+###### 3. `gcpt` 명령어 실행
 
 ```bash
 gcpt [options]
 ```
 
-옵션
+###### 옵션
 
 - `-f, --file <path>` : YAML 파일의 경로를 지정합니다. 기본값은 ./src/config/sample-config.yaml입니다.
 - `-d, --outDir <path>` : 생성된 컴포넌트의 출력 디렉토리를 지정합니다. 기본값은 ./src/components입니다.
@@ -86,7 +106,7 @@ gcpt [options]
 
 전역 설치를 원하지 않는 경우, 프로젝트 디렉토리 내에서 직접 실행할 수 있습니다.
 
-1. 프로젝트 실행
+###### 1. 프로젝트 실행
 
 ```bash
 pnpm dev
@@ -96,20 +116,20 @@ pnpm dev
 
 ---
 
-## 예제 프로젝트
+###### ## 예제 프로젝트
 
 Yaml React Component Generator의 동작을 직접 클라이언트에서 확인해볼 수 있도록 예제 프로젝트를 제공합니다.
 
 예제 프로젝트 : [example 바로가기](https://github.com/younyikim/yaml-react-component/tree/main/example)
 
-1. 의존성 설치
+###### 1. 의존성 설치
 
 ```bash
 cd example
 pnpm i
 ```
 
-2. 명령어 실행
+###### 2. 명령어 실행
 
 ```bash
 gcpt [options]
@@ -117,7 +137,7 @@ gcpt [options]
 
 - 명령어를 실행하면 기본 YAML 파일에 기반한 컴포넌트를 `src/components` 위치에 생성합니다.
 
-3. 컴포넌트 사용하기
+###### 3. 컴포넌트 사용하기
 
 기본 YAML 파일을 사용해 생성된 `<Dashboard>` 컴포넌트를 App.tsx 파일에 import하여 컴포넌트의 동작을 확인합니다.
 
@@ -132,10 +152,8 @@ return (
 );
 ```
 
-4. 예제 프로젝트 실행
+###### 4. 예제 프로젝트 실행
 
 ```bash
 pnpm dev
 ```
-
-
