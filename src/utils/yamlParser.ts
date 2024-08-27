@@ -15,14 +15,20 @@ export function yamlParser(filePath: string): ParsedYaml {
   const { readFileSync, pathExistsSync } = fsExtra;
 
   try {
+    // 파일 경로에 YAML 파일이 존재하는 지 확인
     if (!pathExistsSync(filePath)) {
-      console.error(`Error: File does not exist at path "${filePath}"`);
-      process.exit(1);
+      throw new Error(`Error: File does not exist at path "${filePath}"`);
     }
 
-    return yaml.load(readFileSync(filePath, 'utf8')) as ParsedYaml;
-  } catch (e) {
-    console.error(e);
-    throw new Error('Error reading or parsing YAML file');
+    try {
+      // YAML 문자열을 파싱하여 JavaScript 객체로 변환합니다.
+      return yaml.load(readFileSync(filePath, 'utf8')) as ParsedYaml;
+    } catch (parseError) {
+      // YAML 파싱 중 오류가 발생한 경우
+      throw new Error(`Error parsing YAML file at path "${filePath}"`);
+    }
+  } catch (readError) {
+    //YAML 구성 파일 읽기 중 에러가 발생한 경우
+    throw new Error(`Error reading YAML file at path "${filePath}"`);
   }
 }

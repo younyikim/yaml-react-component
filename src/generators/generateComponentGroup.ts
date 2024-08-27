@@ -24,12 +24,11 @@ export function generateComponentGroup(config: ParsedYaml, cmd: Command) {
     if (name) {
       generateComponent(name, config, cmd);
     } else {
-      console.error(
+      throw new Error(
         chalk.red(
           'Error: Missing component name in the components section of the YAML file.'
         )
       );
-      process.exit(1);
     }
   });
 }
