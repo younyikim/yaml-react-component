@@ -1,5 +1,5 @@
 // Utils
-import { capitalizeFirstLetter, transformedState } from './util';
+import { capitalizeFirstLetter, transformedState } from '../utils/util';
 
 // Typings
 import { Component } from '../types/utils';

@@ -4,7 +4,7 @@ import fsExtra from 'fs-extra';
 
 // Utils
 import { generateTemplate } from './generateTemplate';
-import { topologicalSort } from './topologicalSort';
+import { topologicalSort } from '../utils/topologicalSort';
 
 // Typings
 import { ParsedYaml } from '../types/utils';

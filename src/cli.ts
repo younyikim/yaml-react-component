@@ -4,7 +4,7 @@ import { program, Command } from 'commander';
 import chalk from 'chalk';
 
 // Utils
-import { initGenerateComponent } from './utils/initGenerateComponent';
+import { initGenerateComponent } from './generators/initGenerateComponent';
 
 program
   .version('1.0.0')

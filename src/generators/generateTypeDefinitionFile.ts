@@ -2,7 +2,7 @@ import fsExtra from 'fs-extra';
 import chalk from 'chalk';
 
 // Utils
-import { generateTypes } from './typeInference';
+import { generateTypes } from '../utils/typeInference';
 
 // Typings
 import { ParsedYaml } from '../types/utils';

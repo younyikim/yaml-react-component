@@ -1,10 +1,10 @@
 import { Command } from 'commander';
 
 // Utils
-import { yamlParser } from './yamlParser';
+import { yamlParser } from '../utils/yamlParser';
 import { generateComponentGroup } from './generateComponentGroup';
 import { generateTypeDefinitionFile } from './generateTypeDefinitionFile';
-import { checkYamlValidation } from './checkYamlValidation';
+import { checkYamlValidation } from '../utils/checkYamlValidation';
 
 /**
  * CLI 명령을 초기화하고 YAML 파일을 기반으로 React 컴포넌트와 TypeScript 타입 정의 파일을 생성하는 함수.

@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 
 // Utils
-import { uncapitalizeFirstLetter } from './util';
+import { uncapitalizeFirstLetter } from '../utils/util';
 import { generateImportState } from './generateImportState';
 import { generateState } from './generateState';
 import { generateEventState } from './generateEventState';

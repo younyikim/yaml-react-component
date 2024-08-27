@@ -2,7 +2,7 @@ import { Command } from 'commander';
 import path from 'path';
 
 // Utils
-import { uncapitalizeFirstLetter } from './util';
+import { uncapitalizeFirstLetter } from '../utils/util';
 
 // Typings
 import { Component, ParsedYaml } from '../types/utils';
