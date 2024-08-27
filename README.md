@@ -118,7 +118,8 @@ pnpm dev
 
 ---
 
-###### ## 예제 프로젝트
+
+## 예제 프로젝트
 
 Yaml React Component Generator의 동작을 직접 클라이언트에서 확인해볼 수 있도록 예제 프로젝트를 제공합니다.
 
