@@ -6,6 +6,7 @@ import { generateImportState } from './generateImportState';
 import { generateState } from './generateState';
 import { generateEventState } from './generateEventState';
 import { generateChildState } from './generateChildState';
+import { generateComponentInterface } from '../utils/typeInference';
 
 // Typings
 import { GeneratedTemplate, ParsedYaml } from '../types/utils';
@@ -41,12 +42,14 @@ export function generateTemplate(
     config,
     cmd
   );
-
+  const typeStatement = generateComponentInterface(componentName, component);
   const stateStatement = generateState(component);
   const eventStatement = generateEventState(component);
   const childrenStatement = generateChildState(component, config);
 
   let template = importStatement + '\n\n';
+
+  template += typeStatement + '\n\n';
 
   template += `const ${componentName} = ( ) => {\n`;
 

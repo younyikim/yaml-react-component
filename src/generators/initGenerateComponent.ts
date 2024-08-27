@@ -3,7 +3,6 @@ import { Command } from 'commander';
 // Utils
 import { yamlParser } from '../utils/yamlParser';
 import { generateComponentGroup } from './generateComponentGroup';
-import { generateTypeDefinitionFile } from './generateTypeDefinitionFile';
 import { checkYamlValidation } from '../utils/checkYamlValidation';
 
 /**
@@ -21,9 +20,6 @@ export function initGenerateComponent(options: any, cmd: Command) {
 
   // YAML 파일 유효성 검사
   checkYamlValidation(parsedYaml);
-
-  // YAML 파일을 바탕으로 TypeScript 타입을 저장할 디렉토리와 파일을 생성
-  generateTypeDefinitionFile(parsedYaml, outDir, types);
 
   // YAML 파일을 바탕으로 컴포넌트를 생성
   generateComponentGroup(parsedYaml, cmd);

@@ -30,30 +30,20 @@ export function generateImportState(
   const { components, styles } = config;
   const { types: typePath, outDir } = cmd.opts();
 
-  // 타입 디렉토리 절대 경로
-  const absoluteTypesDir = path.resolve(typePath);
   // 컴포넌트 디렉토리 절대 경로
   const absoluteComponentDir = path.resolve(outDir, componentName);
 
-  // typesDir에서 componentDir로의 상대 경로를 계산
-  let relativeTypePath = path.relative(absoluteComponentDir, absoluteTypesDir);
   // 현재 컴포넌트 위치에서 import할 컴포넌트의 상대 경로를 계산
   let relativeDirPath = path.relative(absoluteComponentDir, outDir);
 
   // 상대 경로에서 현재 디렉토리를 가리키는 '.'을 제거
-  if (!relativeTypePath.startsWith('.')) {
-    relativeTypePath = `./${relativeTypePath}`;
+  if (!relativeDirPath.startsWith('.')) {
+    relativeDirPath = `./${relativeDirPath}`;
   }
 
   const reactImportState: string[] = [];
-  const typeImportState: string[] = [];
   const childImportState: string[] = [];
   const dynamicImportState: string[] = [];
-
-  // props가 존재하는 경우
-  if (props) {
-    typeImportState.push(`${componentName}Props`);
-  }
 
   // state가 존재하는 경우
   if (state) {
@@ -100,11 +90,6 @@ export function generateImportState(
       ? `import { eventBus } from 'yaml-react-component';`
       : '';
 
-  const typeStatement =
-    typeImportState.length > 0
-      ? `import { ${typeImportState.join(', ')} } from '${relativeTypePath}';`
-      : '';
-
   const styleStatement =
     styles && styles[componentName] ? `import './style.css';` : '';
 
@@ -119,7 +104,6 @@ export function generateImportState(
     reactStatement,
     eventBusStatement,
     childrenStatement,
-    typeStatement,
     styleStatement,
     dynamicStatement,
   ]
