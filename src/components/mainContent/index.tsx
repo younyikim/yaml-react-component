@@ -3,7 +3,7 @@ import { eventBus } from 'yaml-react-component';
 const PostList = lazy(() => import('../postList'));
 const PostDetails = lazy(() => import('../postDetails'));
 
-interface MainContentProps { user: Record<string, unknown> }
+interface MainContentProps { user: Record<string, unknown>; }
 
 const MainContent = ( ) => {
   const [posts, setPosts] = useState<unknown[]>([]);

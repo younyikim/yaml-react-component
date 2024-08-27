@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { eventBus } from 'yaml-react-component';
 
-interface PostListProps { posts: unknown[] }
+interface PostListProps { posts: unknown[]; }
 
 const PostList = ( ) => {
   useEffect(() => {

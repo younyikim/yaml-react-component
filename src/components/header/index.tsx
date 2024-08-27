@@ -3,7 +3,7 @@ import { eventBus } from 'yaml-react-component';
 import UserMenu from '../userMenu';
 import './style.css';
 
-interface HeaderProps { title: string; user: Record<string, unknown> }
+interface HeaderProps { title: string; user: Record<string, unknown>; }
 
 const Header = ( ) => {
   useEffect(() => {

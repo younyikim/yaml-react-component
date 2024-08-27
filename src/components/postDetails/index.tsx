@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface PostDetailsProps { post: Record<string, unknown> }
+interface PostDetailsProps { post: Record<string, unknown>; }
 
 const PostDetails = ( ) => {
   return (

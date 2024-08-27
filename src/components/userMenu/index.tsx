@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { eventBus } from 'yaml-react-component';
 
-interface UserMenuProps { user: Record<string, unknown>; menuItems: unknown[] }
+interface UserMenuProps { user: Record<string, unknown>; menuItems: unknown[]; }
 
 const UserMenu = ( ) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
