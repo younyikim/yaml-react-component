@@ -40,6 +40,8 @@ export function convertToType(type: string): string {
       return 'number';
     case 'string':
       return 'string';
+    case 'function':
+      return '() => void';
     case 'none':
       return 'void';
     default:

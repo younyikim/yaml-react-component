@@ -29,8 +29,8 @@ export function generateComponentInterface(
  */
 export function generateType(fields: Record<string, string>): string {
   const types = Object.entries(fields)
-    .map(([key, value]) => `${key}: ${convertToType(value)}`)
-    .join('; ');
+    .map(([key, value]) => `${key}: ${convertToType(value)};`)
+    .join(' ');
 
   return `{ ${types} }`;
 }
@@ -41,12 +41,12 @@ export function generateType(fields: Record<string, string>): string {
  * @param events - 이벤트의 이름과 페이로드 타입을 포함하는 딕셔너리입니다.
  * @returns 이벤트에 대한 TypeScript 인터페이스 정의가 포함된 문자열을 반환합니다.
  */
-function generateEventInterfaces(
+export function generateEventInterfaces(
   events: Record<string, { payload: string }>
 ): string {
   const eventTypes = Object.entries(events)
     .map(([event, { payload }]) => `${event}: ${convertToType(payload)};`)
-    .join('\n');
+    .join(' ');
 
-  return `export interface EventPayloads { ${eventTypes} }`;
+  return `interface EventPayloads { ${eventTypes} }`;
 }

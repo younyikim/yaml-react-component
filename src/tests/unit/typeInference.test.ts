@@ -1,21 +1,63 @@
-import * as path from 'path';
+import {
+  generateComponentInterface,
+  generateEventInterfaces,
+} from '../../utils/typeInference';
 
-// Utils
-import { generateTypes } from '../../utils/typeInference';
-import { yamlParser } from '../../utils/yamlParser';
+// Sample YAML 구조를 JSON 형태로 직접 정의합니다.
+const sampleConfig = {
+  components: {
+    Dashboard: {
+      props: {
+        title: 'string',
+        items: 'array',
+      },
+    },
+    Header: {
+      props: {
+        logo: 'string',
+      },
+    },
+    UserMenu: {
+      props: {
+        userName: 'string',
+        onLogout: 'function',
+      },
+    },
+  },
+  events: {
+    DATA_LOADED: { payload: 'string' },
+    USER_LOGGED_IN: { payload: 'object' },
+  },
+};
 
 describe('Type Inference System', () => {
-  const sampleYamlPath = path.join(
-    __dirname,
-    '../../config/sample-config.yaml'
-  );
-  const sampleYaml = yamlParser(sampleYamlPath);
-
   test('should generate TypeScript interfaces from JSON object', () => {
-    const types = generateTypes(sampleYaml);
-    expect(types).toContain('interface DashboardProps');
-    expect(types).toContain('interface HeaderProps');
-    expect(types).toContain('interface UserMenuProps');
-    expect(types).toContain('interface EventPayloads');
+    // 컴포넌트 이름과 구성에서 TypeScript 인터페이스 생성
+    Object.entries(sampleConfig.components).forEach(([name, component]) => {
+      const componentInterface = generateComponentInterface(name, component);
+
+      // 각 컴포넌트 인터페이스가 포함되어 있는지 개별적으로 확인
+      if (name === 'Dashboard') {
+        expect(componentInterface).toContain(
+          'interface DashboardProps { title: string; items: unknown[]; }'
+        );
+      } else if (name === 'Header') {
+        expect(componentInterface).toContain(
+          'interface HeaderProps { logo: string; }'
+        );
+      } else if (name === 'UserMenu') {
+        expect(componentInterface).toContain(
+          `interface UserMenuProps { userName: string; onLogout: () => void; }`
+        );
+      }
+    });
+  });
+
+  test('should generate TypeScript event payload interfaces', () => {
+    const eventPayloads = generateEventInterfaces(sampleConfig.events);
+
+    expect(eventPayloads).toContain(
+      'interface EventPayloads { DATA_LOADED: string; USER_LOGGED_IN: Record<string, unknown>; }'
+    );
   });
 });
