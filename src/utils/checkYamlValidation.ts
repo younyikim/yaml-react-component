@@ -12,6 +12,24 @@ export function checkYamlValidation(config: ParsedYaml) {
     throw new Error('[Invalid YAML config] "components" section is missing.');
   }
 
+  // components가 객체인지 확인
+  if (
+    typeof config.components !== 'object' ||
+    Array.isArray(config.components) ||
+    config.components === null
+  ) {
+    throw new Error(
+      '[Invalid YAML config] "components" section must be a non-empty object.'
+    );
+  }
+
+  // components가 비어 있는지 확인
+  if (Object.keys(config.components).length === 0) {
+    throw new Error(
+      '[Invalid YAML config] "components" section must not be an empty object.'
+    );
+  }
+
   // 컴포넌트 검증
   for (const [name, component] of Object.entries(config.components)) {
     // props 필드가 객체 형식인지 검증
