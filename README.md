@@ -8,11 +8,6 @@
 
 Yaml React Component Generator는 YAML 구성 파일을 통해 React 컴포넌트 생성 프로세스를 간소화하는 Command-line tool입니다. 이 도구는 복잡한 YAML 구조를 파싱하고, YAML 파일을 기반으로 TypeScript 타입을 추론하여 적절한 props와 상태를 가진 React 컴포넌트를 생성합니다. 또한 컴포넌트 간의 통신을 위한 구독 / 발행 이벤트 시스템을 구현하고, 동적 컴포넌트 로딩, 의존성 분석을 지원합니다.
 
-## 코딩 챌린지 제출물
-
-- 제공된 YAML 예제를 기반으로 생성된 React 컴포넌트 코드 : [src/components](https://github.com/younyikim/yaml-react-component/tree/main/src/components)
-- 시스템 아키텍처 및 주요 결정 사항 : [SYSTEM.md](https://github.com/younyikim/yaml-react-component/blob/main/docs/kr/SYSTEM.md)
-
 ---
 
 ## 주요 기능
