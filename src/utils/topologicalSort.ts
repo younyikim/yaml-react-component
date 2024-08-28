@@ -1,4 +1,16 @@
+// Typings
 import { ParsedYaml } from '../types/utils';
+
+/**
+ * 그래프 내 컴포넌트 간의 의존성을 분석하여 위상 정렬을 수행합니다. 이를 통해 컴포넌트들이 올바른 순서로 렌더링되도록 합니다.
+ *
+ * @param {ParsedYaml} graph - 위상 정렬을 수행할 그래프를 나타내는 YAML 파싱 결과 객체입니다.
+ *                              컴포넌트와 그 관계(자식 노드들)가 정의되어 있습니다.
+ *
+ * @returns {string[]} - 컴포넌트들이 올바른 순서로 정렬된 배열을 반환합니다.
+ *
+ * @throws {Error} - 그래프 내에 사이클이 존재하는 경우, 예외를 발생시킵니다.
+ */
 
 export function topologicalSort(graph: ParsedYaml) {
   const { components } = graph;

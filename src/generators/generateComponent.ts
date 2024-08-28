@@ -9,8 +9,7 @@ import { generateTemplate } from './generateTemplate';
 import { ParsedYaml } from '../types/utils';
 
 /**
- * @function generateComponent
- * @description 주어진 컴포넌트 이름과 구성 파일을 기반으로 React 컴포넌트와 스타일 파일을 생성합니다.
+ * 주어진 컴포넌트 이름과 구성 파일을 기반으로 React 컴포넌트와 스타일 파일을 생성합니다.
  *
  * @param {string} componentName - 생성할 컴포넌트의 이름입니다.
  * @param {ParsedYaml} config - YAML 파일을 파싱한 결과로 얻어진 구성 객체입니다.
