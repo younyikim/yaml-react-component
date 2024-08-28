@@ -60,7 +60,7 @@ YAML React Component Generator의 아키텍처는 모듈화, 확장성, 효율�
 
 ### 3.1 CLI
 
-CLI 명령어를 실행하면 YAML 파일을 파싱하고, 지정된 경로에 TypeScript 타입이 포함된 React 컴포넌트를 생성하도록 시스템을 구성했습니다.
+CLI 명령어를 실행하면 YAML 파일을 파싱하고, 지정된 경로에 TypeScript 타입이 포함된 React 컴포넌트를 생성하도록 시스템을 구성했습니다.   
 
 - **사용 기술**
 
@@ -70,6 +70,9 @@ CLI 명령어를 실행하면 YAML 파일을 파싱하고, 지정된 경로에 T
 - **명령어 정의 및 옵션 설정**
   - 명령어 정의 파일 위치 : [src/cli.ts](https://github.com/younyikim/yaml-react-component/blob/main/src/cli.ts)
   - 명령어 : `$ gcpt [options]`
+  - 명령어 설명
+     - gcpt 명령어는 root 프로젝트의 src/cli.ts 파일을 엔트리 포인트로 사용하는 CLI(Command Line Interface) 도구입니다.
+     - 이 명령어가 호출되면, 컴파일된 dist/cli.js 파일이 실행됩니다. 그러므로 gcpt 명령어를 사용하기 위해서는 먼저 root에서 pnpm build 명령어로 TypeScript 파일을 JavaScript로 컴파일하여 실행 가능한 파일을 생성해야 합니다.    
   - 옵션 설정
     - `-f, --file <path>`: YAML 파일의 경로를 지정합니다. 기본값은 `./src/config/sample-config.yaml`입니다.
     - `-d, --outDir <path>`: 생성된 컴포넌트를 저장할 출력 디렉토리를 지정합니다. 기본값은 `./src/components`입니다.
@@ -94,7 +97,11 @@ YAML 파일 여부를 검사하고, YAML 구성 파일을 파싱하여 JSON 객�
       - YAML 파일이 존재하지 않거나, 파싱 중 오류가 발생하는 경우, 콘솔에 오류 메세지를 출력하고 프로그램을 종료합니다.
   - [checkYamlValidation.ts](https://github.com/younyikim/yaml-react-component/blob/main/src/utils/checkYamlValidation.ts)
     - YAML 파일 형식의 유효성 검사를 수행합니다.
-    - 필수 섹션인 `components`가 존재하는 지 여부를 확인하고 존재하지 않으면 에러를 리턴합니다.
+    - 유효성 검사
+      - 필수 필드 (components) 확인
+      - 컴포넌트 필드 유효성 검증
+      - 이벤트 필드 유효성 검증
+      - 스타일 필드 유효성 검증
 
 ### 3.3 타입 추론 시스템
 
@@ -108,12 +115,12 @@ YAML 파일 여부를 검사하고, YAML 구성 파일을 파싱하여 JSON 객�
     - YAML 파일로부터 읽어들인 컴포넌트의 Props에 대한 TypeScript 인터페이스를 생성합니다.
     - 생성된 Props 인터페이스는 해당 컴포넌트 파일에 작성됩니다.
     - ex) dashboard.tsx -> `interface DashboardProps { user: Record<string, unknown> }`
+  - Event 타입 추론 : [typeInference.ts - generateEventInterfaces()](https://github.com/younyikim/yaml-react-component/blob/main/src/utils/typeInference.ts)
+    - YAML 파일의 "events" 섹션의 정보를 기반으로 이벤트의 TypeScript 인터페이스를 생성합니다.
   - State 타입 추론 : [generateState.ts](https://github.com/younyikim/yaml-react-component/blob/main/src/generators/generateState.ts)
     - YAML 파일로부터 읽어들인 컴포넌트의 State에 대한 TypeScript 인터페이스를 생성합니다.
     - 생성된 State 타입은 해당 컴포넌트 파일에 작성됩니다.
     - ex) dashboard.tsx -> `const [data, setData] = useState<Record<string, unknown>>({});`
-  - Event 타입 추론 : [typeInference.ts - generateEventInterfaces()](https://github.com/younyikim/yaml-react-component/blob/main/src/utils/typeInference.ts)
-    - YAML 파일의 "events" 섹션의 정보를 기반으로 이벤트의 TypeScript 인터페이스를 생성합니다.
 
 ### 3.4 컴포넌트 코드 생성기
 
@@ -225,8 +232,7 @@ export default Dashboard;
 
 ### 3.5 Pub/Sub 이벤트 시스템
 
-Pub/Sub(발행/구독) 이벤트 시스템을 통해 컴포넌트 간의 이벤트 처리를 효율적으로 관리합니다.  
-이 시스템을 통해 컴포넌트 간의 이벤트 구독, 발행, 구독 취소 등의 작업을 쉽게 수행할 수 있습니다.
+Pub/Sub(발행/구독) 이벤트 시스템을 통해 컴포넌트 간의 이벤트 처리를 효율적으로 관리합니다. 이 시스템을 통해 컴포넌트 간의 이벤트 구독, 발행, 구독 취소 등의 작업을 쉽게 수행할 수 있습니다.
 
 - **모듈 설명**
 
@@ -271,7 +277,7 @@ Pub/Sub(발행/구독) 이벤트 시스템을 통해 컴포넌트 간의 이벤�
 
     - **클라이언트에서의 사용**
 
-      - EventBus는 클라이언트 측에서 호출하여 사용할 수 있도록 설계되었습니다.
+      - EventBus는 클라이언트 측에서 호출하여 사용할 수 있도록 설계하였습니다.
 
         ```jsx
         // Client 내의 컴포넌트에서 사용 예시
@@ -313,20 +319,22 @@ Pub/Sub(발행/구독) 이벤트 시스템을 통해 컴포넌트 간의 이벤�
         # 컴포넌트 의존성
         - Dashboard
             - Header
+              - UserMenu
             - MainContent
               - PostList
               - PostDetails
             - Footer
 
         # 위상 정렬 알고리즘 실행 결과
-        [  'UserMenu',
-            'Header',
-            'PostList',
-            'PostDetails',
-            'MainContent',
-            'Footer',
-            'Dashboard'
-          ]
+        [
+           'UserMenu',
+           'Header',
+           'PostList',
+           'PostDetails',
+           'MainContent',
+           'Footer',
+           'Dashboard'
+        ]
         ```
 
 ### 3.7.동적 컴포넌트 로딩
@@ -339,9 +347,10 @@ Pub/Sub(발행/구독) 이벤트 시스템을 통해 컴포넌트 간의 이벤�
 
 ### 3.8 오류 처리 및 경계 설정
 
-###### - 잘못된 YAML 구성 파일에 대한 오류 처리
+#### - 잘못된 YAML 구성 파일에 대한 오류 처리
 
-YAML 구성 파일이 잘못된 경우, 사용자가 문제를 쉽게 식별하고 수정할 수 있도록 명확한 오류 메세지를 제공하고, 에러 발생 시 명령어 실행을 종료합니다. 시스템 내 에러가 발생하면 `throw new Error`를 통해 에러를 발생 시키고, CLI 라이브러리인 Commander의 try-catch 블록을 통해 일괄 처리합니다.
+YAML 구성 파일이 잘못된 경우, 사용자가 문제를 쉽게 식별하고 수정할 수 있도록 명확한 오류 메세지를 제공하고, 에러 발생 시 명령어 실행을 종료합니다.   
+시스템 내 에러가 발생하면 `throw new Error`를 통해 에러를 발생 시키고, CLI 라이브러리인 Commander의 try-catch 블록을 통해 일괄 처리합니다.
 
 1. **YAML 파서에서의 오류 처리**
 
@@ -358,7 +367,7 @@ YAML 구성 파일이 잘못된 경우, 사용자가 문제를 쉽게 식별하�
   - 이벤트 필드 유효성 검증
   - 스타일 필드 유효성 검증
 
-###### - 컴포넌트 생성 시 오류 처리
+#### - 컴포넌트 생성 시 오류 처리
 
 1. **파일 시스템 오류 처리**
 
@@ -371,7 +380,7 @@ YAML 구성 파일이 잘못된 경우, 사용자가 문제를 쉽게 식별하�
   - [Jest](https://www.npmjs.com/package/jest) : Test 프레임워크
 
 - [Unit Test](https://github.com/younyikim/yaml-react-component/tree/main/src/tests/unit)
-  개별 모듈이나 함수가 예상대로 작동하는지 확인하기 위해 일부 함수에 Unit Test를 진행했습니다.
+   : 개별 모듈이나 함수가 예상대로 작동하는지 확인하기 위해 일부 함수에 Unit Test를 진행했습니다.
   - Unit Test 진행 함수
     - checkYamlValidation.ts
     - eventBus.ts
@@ -380,4 +389,4 @@ YAML 구성 파일이 잘못된 경우, 사용자가 문제를 쉽게 식별하�
     - util.ts
     - yamlParser.ts
 - Integration Test
-  현재까지 진행된 테스트는 개별 함수와 모듈의 유닛 테스트에 한정되어 있으며, 전체 시스템의 통합 동작을 검증하는 통합 테스트는 포함되어 있지 않습니다.
+   - 현재까지 진행된 테스트는 개별 함수와 모듈의 유닛 테스트에 한정되어 있으며, 전체 시스템의 통합 동작을 검증하는 통합 테스트는 포함되어 있지 않습니다.
