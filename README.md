@@ -2,7 +2,7 @@
 
 ![Safari](https://github.com/user-attachments/assets/914be4b6-41fe-4e8c-9542-e86a083cb2c1)
 
-Language : Korean | [English](https://github.com/younyikim/yaml-react-component/blob/main/docs/en/README-en.md)
+
 
 ## 개요
 
