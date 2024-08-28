@@ -83,7 +83,7 @@ export function generateImportState(
   const reactStatement =
     reactImportState.length > 0
       ? `import { ${reactImportState.join(', ')} } from 'react';`
-      : `import React from 'react';`;
+      : '';
 
   const eventBusStatement =
     subscriptions || publications
