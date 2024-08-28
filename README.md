@@ -103,6 +103,13 @@ rm -rf src/components
 pnpm build
 ```
 
+> Q. `gcpt` 명령어 사용 시 빌드가 필요한 이유?
+>
+> A. `gcpt` 명령어는 root 프로젝트의 src/cli.ts 파일을 엔트리 포인트로 사용하는 CLI(Command Line Interface) 도구입니다.     
+>
+>  이  명령어가 호출되면, 컴파일된 dist/cli.js 파일이 실행됩니다. 따라서, example 프로젝트에서 gcpt 명령어를 사용하기 위해서는 먼저 root에서 pnpm build 명령어로 TypeScript 파일을 JavaScript로 컴파일하여 실행 가능한 파일을 생성해야 합니다.
+
+
 ##### ② 프로젝트 전역 설치
 
 ```bash
