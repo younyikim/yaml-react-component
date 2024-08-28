@@ -58,7 +58,7 @@ https://github.com/user-attachments/assets/cd05108a-c711-49f2-bd47-7a1392529f36
 
 ## 설치 및 사용법
 
-###### 1. 설치
+### 1. 설치
 
 ```bash
 git clone https://github.com/younyikim/yaml-react-component.git
@@ -66,37 +66,50 @@ cd yaml-react-component
 pnpm i
 ```
 
-###### 2. YAML 구성 파일 작성
+### 2. YAML 구성 파일 작성
 
 프로젝트의 `src/config` 디렉토리를 생성하고, YAML 구성 파일을 작성합니다.
 
 예시 YAML 파일 : [sample-config.yaml](https://github.com/younyikim/yaml-react-component/blob/main/src/config/sample-config.yaml)
 
----
 
-## 프로젝트 실행
+### 3. 프로젝트 실행
 
 이 프로젝트는 2가지 방법으로 실행할 수 있습니다.
 
-#### 1. Commnad Line으로 프로젝트 실행하기
+#### 1) 개발 환경에서 프로젝트 실행하기
+
+전역 설치를 원하지 않는 경우, 프로젝트 디렉토리 내에서 직접 실행할 수 있습니다.
+
+```bash
+pnpm dev
+```
+
+- `dev` 명령어는 TypeScript로 작성된 원본 파일(src/cli.ts)을 직접 실행하기 때문에, 빌드 과정이 필요하지 않습니다.
+
+
+#### 2) Commnad Line으로 프로젝트 실행하기
 
 이 프로젝트에서는 `gcpt`라는 CLI 명령어를 제공합니다. 이 명령어를 사용하여 YAML 파일을 기반으로 React 컴포넌트를 생성할 수 있습니다.
 
-**사용 방법**
+##### ① 프로젝트 빌드
 
-###### 1. 프로젝트 빌드
+YAML 예제를 기반으로 생성된 React 컴포넌트 코드가 `src/components`에 이미 존재하기 때문에, 바로 빌드 시 에러가 발생합니다.    
+
+따라서 빌드 전에는 먼저 `src/components`를 삭제해야합니다. 
 
 ```bash
+rm -rf src/components
 pnpm build
 ```
 
-###### 2. 프로젝트 전역 설치
+##### ② 프로젝트 전역 설치
 
 ```bash
 npm i -g
 ```
 
-###### 3. `gcpt` 명령어 실행
+##### ③ `gcpt` 명령어 실행
 
 ```bash
 gcpt [options]
@@ -107,17 +120,6 @@ gcpt [options]
 - `-f, --file <path>` : YAML 파일의 경로를 지정합니다. 기본값은 ./src/config/sample-config.yaml입니다.
 - `-d, --outDir <path>` : 생성된 컴포넌트의 출력 디렉토리를 지정합니다. 기본값은 ./src/components입니다.
 
-#### 2. 개발 환경에서 프로젝트 실행하기
-
-전역 설치를 원하지 않는 경우, 프로젝트 디렉토리 내에서 직접 실행할 수 있습니다.
-
-###### 1. 프로젝트 실행
-
-```bash
-pnpm dev
-```
-
-- `dev` 명령어는 TypeScript로 작성된 원본 파일(src/cli.ts)을 직접 실행하기 때문에, 빌드 과정이 필요하지 않습니다.
 
 ---
 
@@ -127,14 +129,21 @@ Yaml React Component Generator의 동작을 직접 클라이언트에서 확인�
 
 예제 프로젝트 : [example 바로가기](https://github.com/younyikim/yaml-react-component/tree/main/example)
 
-###### 1. 의존성 설치
+### 1. yaml-react-component 빌드
+
+```bash
+# Root 레벨에서 yaml-react-component/src 내 코드 빌드
+pnpm build
+```
+
+### 2. 예제 프로젝트 이동 & 의존성 설치
 
 ```bash
 cd example
 pnpm i
 ```
 
-###### 2. 명령어 실행
+### 3. 명령어 실행
 
 ```bash
 gcpt [options]
@@ -142,26 +151,17 @@ gcpt [options]
 
 - 명령어를 실행하면 기본 YAML 파일에 기반한 컴포넌트를 `src/components` 위치에 생성합니다.
 
-###### 3. 컴포넌트 사용하기
+### 4. 컴포넌트 사용하기
 
-기본 YAML 파일을 사용해 생성된 `<Dashboard>` 컴포넌트를 App.tsx 파일에 import하여 컴포넌트의 동작을 확인합니다.
+예제 프로젝트의 App.tsx 파일에 기본 YAML 파일을 사용하여 생성된 <Dashboard> 컴포넌트가 이미 import 되어 있습니다. 필요에 따라 수정하여 사용하면 됩니다. 
 
-```js
-// App.tsx
-import Dashboard from "../components/dashboard";
 
-...
-
-return (
-  <Dashboard />
-);
-```
-
-###### 4. 예제 프로젝트 실행
+### 5. 예제 프로젝트 실행
 
 ```bash
 pnpm dev
 ```
+---
 
 ## 주요 의존성
 
