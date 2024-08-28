@@ -1,13 +1,13 @@
-import React from 'react';
+interface PostDetailsProps {
+  post: Record<string, unknown>;
+}
 
-interface PostDetailsProps { post: Record<string, unknown>; }
-
-const PostDetails = ( ) => {
+const PostDetails = () => {
   return (
     <div data-testid="PostDetails">
       <h1>PostDetails Component</h1>
     </div>
-  )
+  );
 };
 
 export default PostDetails;
