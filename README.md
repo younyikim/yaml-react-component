@@ -27,6 +27,8 @@ Yaml React Component Generator는 YAML 구성 파일을 통해 React 컴포넌�
 - **오류 처리**
   - 잘못된 구성 파일에 대해 명확한 오류 메시지를 제공하며, 컴포넌트 파일 생성 시 적절한 오류 처리를 수행합니다.   
 
+[📓 시스템 아키텍처 및 주요 결정 사항 Docs 바로가기 >>](https://github.com/younyikim/yaml-react-component/blob/main/docs/SYSTEM.md)
+
 ## Demo
 
 https://github.com/user-attachments/assets/cd05108a-c711-49f2-bd47-7a1392529f36
