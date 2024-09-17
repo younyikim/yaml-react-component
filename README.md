@@ -1,6 +1,6 @@
 # Yaml React Component Generator
 
-![Safari](https://github.com/user-attachments/assets/cd010201-1ec1-4b07-8944-a63d76e2cef3)
+![Safari (1)](https://github.com/user-attachments/assets/ba3530c7-ed18-4113-a2b2-5cce11030636)
 
 ## 개요
 
