@@ -38,7 +38,8 @@ Yaml React Component Generator는 YAML 구성 파일을 통해 React 컴포넌�
 
 ## Demo
 
-https://github.com/user-attachments/assets/cd05108a-c711-49f2-bd47-7a1392529f36
+
+https://github.com/user-attachments/assets/8f4f10de-4292-41bf-a3a8-2f40d4fb6aa2
 
 ---
 
