@@ -79,7 +79,7 @@ YAML 파일 여부를 검사하고, YAML 구성 파일을 파싱하여 JSON 객�
     - ex) input : `user: object` -> output : `user : Record<string, unknown>`
   - Props 타입 추론 : [typeInference.ts - generateComponentInterface()](https://github.com/younyikim/yaml-react-component/blob/main/src/utils/typeInference.ts)
     - YAML 파일로부터 읽어들인 컴포넌트의 Props에 대한 TypeScript 인터페이스를 생성합니다.
-    - 생성된 Props 인터페이스는 해당 컴포넌트 파일에 작성됩니다.
+    - 생성된 Props 인터페이스는 해당 컴포넌트 폴더의 `index.d.ts`에 작성됩니다.
     - ex) dashboard.tsx -> `interface DashboardProps { user: Record<string, unknown> }`
   - State 타입 추론 : [generateState.ts](https://github.com/younyikim/yaml-react-component/blob/main/src/generators/generateState.ts)
     - YAML 파일로부터 읽어들인 컴포넌트의 State에 대한 TypeScript 인터페이스를 생성합니다.
