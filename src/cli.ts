@@ -14,7 +14,7 @@ program
     'YAML file path',
     './src/config/sample-config.yaml'
   )
-  .option('-d, --outDir <path>', 'Output directory', './src/components')
+  .option('-d, --outDir <path>', 'Output directory', 'src/components')
   .action(async (options, cmd: Command) => {
     try {
       initGenerateComponent(options, cmd);

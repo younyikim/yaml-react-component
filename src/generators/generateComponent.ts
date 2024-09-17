@@ -28,6 +28,8 @@ export function generateComponent(
     componentDirPath,
     componentFilePath,
     componentStylePath,
+    typeFilePath,
+    typeStatement,
     template,
     componentStyle,
   } = generateTemplate(componentName, config, cmd);
@@ -44,6 +46,11 @@ export function generateComponent(
     );
   }
 
+  // 컴포넌트 타입 파일 경로에 이미 동일한 파일이 존재하는 경우
+  if (existsSync(typeFilePath) && typeStatement !== '') {
+    throw new Error(`File already exists in this path "${typeFilePath}".`);
+  }
+
   try {
     // 컴포넌트 파일 생성
     outputFileSync(componentFilePath, template);
@@ -51,6 +58,11 @@ export function generateComponent(
     // 컴포넌트 스타일이 존재하는 경우, 스타일 파일 생성
     if (componentStyle !== '') {
       outputFileSync(componentStylePath, componentStyle);
+    }
+
+    // 컴포넌트 타입이 존재하는 경우, 타입 파일 생성
+    if (typeStatement !== '') {
+      outputFileSync(typeFilePath, typeStatement);
     }
 
     console.log(

@@ -16,9 +16,9 @@ export function generateComponentInterface(
   component: Component
 ): string {
   // 컴포넌트의 props와 state에 대한 TypeScript 타입 생성
-  const propsType = component.props ? generateType(component.props) : '{}';
+  const propsType = component.props ? generateType(component.props) : '';
 
-  return `interface ${name}Props ${propsType}`;
+  return propsType ? `export interface ${name}Props ${propsType}` : '';
 }
 
 /**

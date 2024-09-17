@@ -32,6 +32,7 @@ export function generateTemplate(
   const component = components[componentName];
   const componentDirPath = `${outDir}/${uncapitalizeFirstLetter(componentName)}`;
   const componentFilePath = `${componentDirPath}/index.tsx`;
+  const typeFilePath = component?.props ? `${componentDirPath}/index.d.ts` : '';
   const componentStylePath = `${componentDirPath}/style.css`;
   const componentStyle = styles ? styles[componentName] : null;
 
@@ -48,9 +49,7 @@ export function generateTemplate(
 
   let template = importStatement + '\n\n';
 
-  template += typeStatement + '\n\n';
-
-  template += `const ${componentName} = ( ) => {\n`;
+  template += `const ${componentName} = () => {\n`;
 
   if (stateStatement) {
     template += '  ' + stateStatement + '\n  ';
@@ -85,6 +84,8 @@ export function generateTemplate(
     componentDirPath,
     componentFilePath,
     componentStylePath,
+    typeFilePath,
+    typeStatement,
     template,
     componentStyle: componentStyle ? componentStyle.css : '',
   };

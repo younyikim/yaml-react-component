@@ -30,6 +30,8 @@ export interface GeneratedTemplate {
   componentFilePath: string;
   componentStylePath: string;
   componentStyle: string;
+  typeFilePath: string;
+  typeStatement: string;
   template: string;
 }
 
