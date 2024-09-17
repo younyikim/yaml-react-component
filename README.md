@@ -76,6 +76,21 @@ React 컴포넌트를 생성하려면 YAML 구성 파일을 작성해야 합니�
 
 CLI 명령어 옵션을 사용하여 YAML 파일의 경로를 직접 지정할 수도 있습니다. `-f` 또는 `--file` 옵션을 사용하면 다른 위치의 YAML 파일을 지정할 수 있습니다.
 
+```yaml
+# 예시
+components:
+  Dashboard:
+    props:
+      user: object
+    state:
+      data: object
+      loading: boolean
+    children:
+      - Header
+      - MainContent
+      - Footer
+```
+
 예시 YAML 파일 : [config.yaml](https://github.com/younyikim/yaml-react-component/blob/main/src/config/config.yaml)
 
 ### 3. 프로젝트 실행
