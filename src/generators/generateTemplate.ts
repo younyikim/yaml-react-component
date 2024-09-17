@@ -4,7 +4,6 @@ import { Command } from 'commander';
 import { uncapitalizeFirstLetter } from '../utils/util';
 import { generateImportState } from './generateImportState';
 import { generateState } from './generateState';
-import { generateEventState } from './generateEventState';
 import { generateChildState } from './generateChildState';
 import { generateComponentInterface } from '../utils/typeInference';
 
@@ -30,10 +29,12 @@ export function generateTemplate(
   const { outDir } = cmd.opts();
 
   const component = components[componentName];
+
   const componentDirPath = `${outDir}/${uncapitalizeFirstLetter(componentName)}`;
   const componentFilePath = `${componentDirPath}/index.tsx`;
   const typeFilePath = component?.props ? `${componentDirPath}/index.d.ts` : '';
   const componentStylePath = `${componentDirPath}/style.css`;
+
   const componentStyle = styles ? styles[componentName] : null;
 
   const importStatement = generateImportState(
@@ -44,7 +45,6 @@ export function generateTemplate(
   );
   const typeStatement = generateComponentInterface(componentName, component);
   const stateStatement = generateState(component);
-  const eventStatement = generateEventState(component);
   const childrenStatement = generateChildState(component, config);
 
   let template = importStatement + '\n\n';
@@ -52,13 +52,7 @@ export function generateTemplate(
   template += `const ${componentName} = () => {\n`;
 
   if (stateStatement) {
-    template += '  ' + stateStatement + '\n  ';
-  }
-
-  if (eventStatement) {
-    template += stateStatement
-      ? '\n' + eventStatement + '\n'
-      : eventStatement + '\n';
+    template += '  ' + stateStatement + '\n\n';
   }
 
   template += '  return (\n';

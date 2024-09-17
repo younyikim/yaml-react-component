@@ -78,29 +78,6 @@ export function checkYamlValidation(config: ParsedYaml) {
     }
   }
 
-  // event 필드 검증
-  if (config?.events) {
-    for (const event of Object.keys(config.events)) {
-      // 이벤트가 객체인지 확인
-      if (
-        typeof config.events[event] !== 'object' ||
-        config.events[event] === null ||
-        Array.isArray(config.events[event])
-      ) {
-        throw new Error(
-          `[Invalid YAML config] Event "${event}" definition is not a valid object.`
-        );
-      }
-
-      // 이벤트의 payload 필드 검증
-      if (config.events[event].payload === undefined) {
-        throw new Error(
-          `[Invalid YAML config] Event "${event}" is missing a "payload" section.`
-        );
-      }
-    }
-  }
-
   // styles 필드 검증
   if (config.styles) {
     // styles가 객체인지 확인

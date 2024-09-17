@@ -2,11 +2,9 @@
 
 ![Safari](https://github.com/user-attachments/assets/914be4b6-41fe-4e8c-9542-e86a083cb2c1)
 
-
-
 ## 개요
 
-Yaml React Component Generator는 YAML 구성 파일을 통해 React 컴포넌트 생성 프로세스를 간소화하는 Command-line tool입니다. 이 도구는 복잡한 YAML 구조를 파싱하고, YAML 파일을 기반으로 TypeScript 타입을 추론하여 적절한 props와 상태를 가진 React 컴포넌트를 생성합니다. 또한 컴포넌트 간의 통신을 위한 구독 / 발행 이벤트 시스템을 구현하고, 동적 컴포넌트 로딩, 의존성 분석을 지원합니다.
+Yaml React Component Generator는 YAML 구성 파일을 통해 React 컴포넌트 생성 프로세스를 간소화하는 Command-line tool입니다. 이 도구는 복잡한 YAML 구조를 파싱하고, YAML 파일을 기반으로 TypeScript 타입을 추론하여 적절한 props와 상태를 가진 React 컴포넌트를 생성합니다. 또한 컴포넌트 동적 컴포넌트 로딩, 의존성 분석을 지원합니다.
 
 ---
 
@@ -18,14 +16,12 @@ Yaml React Component Generator는 YAML 구성 파일을 통해 React 컴포넌�
   - YAML 구성에 기반하여 TypeScript 타입이 포함된 함수형 React 컴포넌트를 생성합니다.
 - **타입 추론 시스템**
   - YAML 구성 파일을 기반으로 TypeScript 타입을 자동으로 추론하여 인터페이스 및 타입 정의를 생성합니다.
-- **Pub / Sub 이벤트 시스템**
-  - 컴포넌트 간의 이벤트 기반 통신을 위해 이벤트 발행, 이벤트 구독 시스템을 구현했습니다.
 - **의존성 분석기**
   - 위상 정렬을 구현하여 컴포넌트 간 의존성을 분석하고, 최적의 렌더링 순서를 결정합니다.
 - **동적 컴포넌트 로딩**
   - YAML 구성 파일을 기반으로 지연 로딩이 필요한 컴포넌트를 `React.lazy()`와 `Suspense`를 사용하여 처리합니다.
 - **오류 처리**
-  - 잘못된 구성 파일에 대해 명확한 오류 메시지를 제공하며, 컴포넌트 파일 생성 시 적절한 오류 처리를 수행합니다.   
+  - 잘못된 구성 파일에 대해 명확한 오류 메시지를 제공하며, 컴포넌트 파일 생성 시 적절한 오류 처리를 수행합니다.
 
 [📓 시스템 아키텍처 및 주요 결정 사항 Docs 바로가기 >>](https://github.com/younyikim/yaml-react-component/blob/main/docs/SYSTEM.md)
 
@@ -71,7 +67,6 @@ pnpm i
 
 예시 YAML 파일 : [sample-config.yaml](https://github.com/younyikim/yaml-react-component/blob/main/src/config/sample-config.yaml)
 
-
 ### 3. 프로젝트 실행
 
 이 프로젝트는 2가지 방법으로 실행할 수 있습니다.
@@ -86,16 +81,15 @@ pnpm dev
 
 - `dev` 명령어는 TypeScript로 작성된 원본 파일(src/cli.ts)을 직접 실행하기 때문에, 빌드 과정이 필요하지 않습니다.
 
-
 #### 2) Commnad Line으로 프로젝트 실행하기
 
 이 프로젝트에서는 `gcpt`라는 CLI 명령어를 제공합니다. 이 명령어를 사용하여 YAML 파일을 기반으로 React 컴포넌트를 생성할 수 있습니다.
 
 ##### ① 프로젝트 빌드
 
-YAML 예제를 기반으로 생성된 React 컴포넌트 코드가 `src/components`에 이미 존재하기 때문에, 바로 빌드 시 에러가 발생합니다.    
+YAML 예제를 기반으로 생성된 React 컴포넌트 코드가 `src/components`에 이미 존재하기 때문에, 바로 빌드 시 에러가 발생합니다.
 
-따라서 빌드 전에는 먼저 `src/components`를 삭제해야합니다. 
+따라서 빌드 전에는 먼저 `src/components`를 삭제해야합니다.
 
 ```bash
 rm -rf src/components
@@ -104,10 +98,9 @@ pnpm build
 
 > Q. `gcpt` 명령어 사용 시 빌드가 필요한 이유?
 >
-> A. `gcpt` 명령어는 root 프로젝트의 src/cli.ts 파일을 엔트리 포인트로 사용하는 CLI(Command Line Interface) 도구입니다.     
+> A. `gcpt` 명령어는 root 프로젝트의 src/cli.ts 파일을 엔트리 포인트로 사용하는 CLI(Command Line Interface) 도구입니다.
 >
->  이  명령어가 호출되면, 컴파일된 dist/cli.js 파일이 실행됩니다. 따라서, example 프로젝트에서 gcpt 명령어를 사용하기 위해서는 먼저 root에서 pnpm build 명령어로 TypeScript 파일을 JavaScript로 컴파일하여 실행 가능한 파일을 생성해야 합니다.
-
+> 이 명령어가 호출되면, 컴파일된 dist/cli.js 파일이 실행됩니다. 따라서, example 프로젝트에서 gcpt 명령어를 사용하기 위해서는 먼저 root에서 pnpm build 명령어로 TypeScript 파일을 JavaScript로 컴파일하여 실행 가능한 파일을 생성해야 합니다.
 
 ##### ② 프로젝트 전역 설치
 
@@ -125,7 +118,6 @@ gcpt [options]
 
 - `-f, --file <path>` : YAML 파일의 경로를 지정합니다. 기본값은 ./src/config/sample-config.yaml입니다.
 - `-d, --outDir <path>` : 생성된 컴포넌트의 출력 디렉토리를 지정합니다. 기본값은 ./src/components입니다.
-
 
 ---
 
@@ -159,14 +151,14 @@ gcpt [options]
 
 ### 4. 컴포넌트 사용하기
 
-예제 프로젝트의 App.tsx 파일에 기본 YAML 파일을 사용하여 생성된 <Dashboard> 컴포넌트가 이미 import 되어 있습니다. 필요에 따라 수정하여 사용하면 됩니다. 
-
+예제 프로젝트의 App.tsx 파일에 기본 YAML 파일을 사용하여 생성된 <Dashboard> 컴포넌트가 이미 import 되어 있습니다. 필요에 따라 수정하여 사용하면 됩니다.
 
 ### 5. 예제 프로젝트 실행
 
 ```bash
 pnpm dev
 ```
+
 ---
 
 ## 주요 의존성

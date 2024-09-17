@@ -1,7 +1,4 @@
-import {
-  generateComponentInterface,
-  generateEventInterfaces,
-} from '../../utils/typeInference';
+import { generateComponentInterface } from '../../utils/typeInference';
 
 // Sample YAML 구조를 JSON 형태로 직접 정의합니다.
 const sampleConfig = {
@@ -23,10 +20,6 @@ const sampleConfig = {
         onLogout: 'function',
       },
     },
-  },
-  events: {
-    DATA_LOADED: { payload: 'string' },
-    USER_LOGGED_IN: { payload: 'object' },
   },
 };
 
@@ -51,13 +44,5 @@ describe('Type Inference System', () => {
         );
       }
     });
-  });
-
-  test('should generate TypeScript event payload interfaces', () => {
-    const eventPayloads = generateEventInterfaces(sampleConfig.events);
-
-    expect(eventPayloads).toContain(
-      'interface EventPayloads { DATA_LOADED: string; USER_LOGGED_IN: Record<string, unknown>; }'
-    );
   });
 });

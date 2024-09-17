@@ -3,21 +3,10 @@ export interface Component {
   state?: Record<string, string>;
   children?: string[];
   lazyLoad?: boolean;
-  /**
-   * 컴포넌트의 구독 항목
-   * 이벤트와 해당 이벤트 발생 시, 수행할 액션을 정의하는 객체
-   */
-  subscriptions?: Array<{ event: string; action: string }>;
-  /**
-   * 컴포넌트의 발행 항목
-   * 컴포넌트가 발생하는 이벤트의 이름을 배열로 나열
-   */
-  publications?: string[];
 }
 
 export interface ParsedYaml {
   components: Record<string, Component>;
-  events?: Record<string, { payload: string }>;
   hooks?: Record<
     string,
     { args: Record<string, string>; returns: Record<string, string> }
@@ -34,11 +23,3 @@ export interface GeneratedTemplate {
   typeStatement: string;
   template: string;
 }
-
-export interface EventBusType {
-  subscribe<T>(event: string, handler: EventHandler<T>): void;
-  publish<T>(event: string, payload: T): void;
-  unsubscribe<T>(event: string, handler: EventHandler<T>): void;
-}
-
-export type EventHandler<T> = (payload: T) => void;

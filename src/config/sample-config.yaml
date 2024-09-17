@@ -5,11 +5,6 @@ components:
     state:
       data: object
       loading: boolean
-    subscriptions:
-      - event: DATA_LOADED
-        action: handleDataLoaded
-    publications:
-      - DASHBOARD_LOADED
     children:
       - Header
       - MainContent
@@ -20,8 +15,6 @@ components:
       title: string
       user: object
     lazyLoad: false
-    publications:
-      - HEADER_CLICKED
     children:
       - UserMenu
 
@@ -31,11 +24,6 @@ components:
       menuItems: array
     state:
       isOpen: boolean
-    subscriptions:
-      - event: TOGGLE_MENU
-        action: toggleMenu
-    publications:
-      - MENU_TOGGLED
 
   MainContent:
     props:
@@ -43,9 +31,6 @@ components:
     state:
       posts: array
       loading: boolean
-    subscriptions:
-      - event: LOAD_POSTS
-        action: loadPosts
     children:
       - PostList
       - PostDetails
@@ -54,8 +39,6 @@ components:
     props:
       posts: array
     lazyLoad: true
-    publications:
-      - POST_SELECTED
 
   PostDetails:
     props:
@@ -68,25 +51,8 @@ components:
       links: array
     lazyLoad: false
 
-events:
-  DATA_LOADED:
-    payload: object
-  TOGGLE_MENU:
-    payload: none
-  LOAD_POSTS:
-    payload: object
-  POST_SELECTED:
-    payload: object
-  DASHBOARD_LOADED:
-    payload: none
-  HEADER_CLICKED:
-    payload: none
-  MENU_TOGGLED:
-    payload: none
-  USER_PROFILE_VIEWED:
-    payload: none
-  USER_DETAILS_EDITED:
-    payload: object
+  Test:
+    lazyLoad: false
 
 hooks:
   useUserData:
