@@ -250,21 +250,3 @@ YAML 구성 파일이 잘못된 경우, 사용자가 문제를 쉽게 식별하�
 1. **파일 시스템 오류 처리**
 
    컴포넌트 파일을 생성할 때, 해당 경로에 이미 파일이 존재하는 경우, 에러를 발생시켜 중복 파일 생성을 방지합니다.
-
-### 2.8 테스트
-
-- **사용 기술**
-
-  - [Jest](https://www.npmjs.com/package/jest) : Test 프레임워크
-
-- [Unit Test](https://github.com/younyikim/yaml-react-component/tree/main/src/tests/unit)
-  : 개별 모듈이나 함수가 예상대로 작동하는지 확인하기 위해 일부 함수에 Unit Test를 진행했습니다.
-  - Unit Test 진행 함수
-    - checkYamlValidation.ts
-    - eventBus.ts
-    - topologicalSort.ts
-    - typeInference.ts
-    - util.ts
-    - yamlParser.ts
-- Integration Test
-  - 현재까지 진행된 테스트는 개별 함수와 모듈의 유닛 테스트에 한정되어 있으며, 전체 시스템의 통합 동작을 검증하는 통합 테스트는 포함되어 있지 않습니다.
